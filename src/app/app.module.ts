@@ -1,14 +1,13 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
-import { NgxPaginationModule } from 'ngx-pagination';
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './authentication/login/login.component';
 import { RegisterComponent } from './authentication/register/register.component';
 import { LandingPageComponent } from './Pages/landing-page/landing-page.component';
-import { RentingListComponent } from './Pages/renting-list/renting-list.component';
-import { CreateHouseComponent } from './Pages/crate-house/crate-house.component';
+
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -21,15 +20,13 @@ import { ProfileComponent } from './Pages/profile/profile.component';
     LoginComponent,
     RegisterComponent,
     LandingPageComponent,
-    RentingListComponent,
-    CreateHouseComponent,
+   
     ProfileComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    NgxPaginationModule,
     ToastrModule.forRoot(),
     BrowserAnimationsModule,
     FormsModule,

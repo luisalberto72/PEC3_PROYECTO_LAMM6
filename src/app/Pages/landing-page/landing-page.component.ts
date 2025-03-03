@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { ActivatedRouteSnapshot, Router, RouterStateSnapshot } from '@angular/router';
+import { Router} from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { DataserviceService } from '../../dataservice.service';
-import jwt_decode from 'jwt-decode';
+import { DataService } from '../../dataservice.service';
+
 import { AppComponent } from '../../app.component';
 
 @Component({
@@ -11,7 +11,7 @@ import { AppComponent } from '../../app.component';
   styleUrls: ['./landing-page.component.css']
 })
 export class LandingPageComponent {
-  constructor(protected functionhome:AppComponent,protected dataserv:DataserviceService,private toastr: ToastrService,protected router:Router) {
+  constructor(protected functionhome:AppComponent,protected dataserv:DataService,private toastr: ToastrService,protected router:Router) {
   }
 
   ngOnInit() {

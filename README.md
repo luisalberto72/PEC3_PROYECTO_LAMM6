@@ -1,12 +1,5 @@
 # Frontend
-https://github.com/Moadjaafar/Rently--Angular---Laravel/assets/122309663/498fca67-892c-42c9-9b04-cc4ea6290974
 
-
-Responsive design
-
-https://github.com/Moadjaafar/Rently--Angular---Laravel/assets/122309663/3a1fba86-bcdf-45c6-83bc-4f58f4e19d34
-
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.0.0.
 
 ## Development server
 

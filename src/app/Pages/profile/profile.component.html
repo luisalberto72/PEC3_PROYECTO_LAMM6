@@ -7,27 +7,14 @@
 
 
         <label class="form-label d-block per" for="">{{First_name}} {{Last_name}}</label>
-        <div class="row">
-          <div class="col">
-            <label class="d-block per">Posts</label>
-            <label class="d-block ">{{nmbrPosts}}</label>
-          </div>
-          <div class="col">
-            <label class="d-block per">Favourite</label>
-            <label class="d-block">{{nbrFavourit}}</label>
-          </div>
-        </div>
+       
       </div> 
-      <div class="bottom">
-        <button class="d-block aa" (click)="showPersonnelInfo()">Personnel Information</button>
-        <button class="d-block aa" (click)="showCreatedProperty()">My Posts</button>
-        <button class="d-block aa" (click)="showFavouriteProperty()">My Favourite Posts</button>
-      </div> 
+       
     </div> 
 
     <div class="col-md-9 sss">
       <!-- Información Personal -->
-      <form class="row g-3" *ngIf="profile">
+      <form class="row g-3">
         <div class="col-md-12">
           <label class="form-label info">Información Personal</label>
         </div>
