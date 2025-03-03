@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { DataserviceService } from '../../dataservice-service.service';
+import { DataService } from '../../dataservice.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 
@@ -12,7 +12,7 @@ export class RegisterComponent {
 
   constructor(
     protected router: Router,
-    protected dataserv: DataserviceService,
+    protected dataserv: DataService,
     private toastr: ToastrService
   ) {}
 

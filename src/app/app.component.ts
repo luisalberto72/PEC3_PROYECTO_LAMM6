@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import jwt_decode from 'jwt-decode';
-import { DataserviceService } from './dataservice-service.service';
+import { DataService } from './dataservice.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 
@@ -17,7 +17,7 @@ export class AppComponent {
   token: any;
 
   constructor(
-    protected dataserv: DataserviceService,
+    protected dataserv: DataService,
     private toastr: ToastrService,
     protected router: Router
   ) {}

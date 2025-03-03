@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { DataserviceService } from '../../dataservice-service.service';
+import { DataserviceService } from '../../dataservice.service';
 import jwt_decode from 'jwt-decode';
 import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute, Router } from '@angular/router';

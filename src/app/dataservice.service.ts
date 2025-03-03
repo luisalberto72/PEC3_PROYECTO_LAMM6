@@ -7,7 +7,7 @@ declare var Email: any;
 @Injectable({
   providedIn: 'root'
 })
-export class DataserviceService {
+export class DataService {
   
   private url: string = 'http://localhost:8000/api';
  

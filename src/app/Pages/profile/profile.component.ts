@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
-import { DataserviceService } from '../../dataservice-service.service';
+import { DataService } from '../../dataservice.service';
 import jwt_decode from 'jwt-decode';
 import { Router } from '@angular/router';
 
@@ -33,7 +33,7 @@ export class ProfileComponent implements OnInit {
   profilePicturePreview: string | null = null; // Para la vista previa
 
   constructor(
-    protected dataserv: DataserviceService,
+    protected dataserv: DataService,
     private toastr: ToastrService,
     protected router: Router
   ) {}

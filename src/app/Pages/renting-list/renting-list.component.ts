@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { DataserviceService } from '../../dataservice-service.service';
+import { DataserviceService } from '../../dataservice.service';
 import { PropertyDetaileComponent } from '../peroperty-detaile/peroperty-detaile.component';
 import { Injectable } from '@angular/core';
 import jwt_decode from 'jwt-decode';

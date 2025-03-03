@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { DataserviceService } from '../../dataservice-service.service';
+import { DataService } from '../../dataservice.service';
 import { ToastrService } from 'ngx-toastr';
 import { AppComponent } from '../../app.component';
 
@@ -19,7 +19,7 @@ export class LoginComponent implements OnInit {
   constructor(
     protected functionhome: AppComponent,
     protected toastr: ToastrService,
-    protected dataserv: DataserviceService,
+    protected dataserv: DataService,
     protected router: Router
   ) {}
 

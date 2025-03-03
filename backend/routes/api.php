@@ -27,7 +27,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::post('/Register',[userController::class,'Register']);
 Route::post('/Login',[userController::class,'Login']);
 
-Route::post('/messages',[Message::class,'sendEmail']);
+
 Route::post('/ResetPass',[userController::class,'forgotPassword']);
 Route::post('/createRent',[HouseController::class,'CreateProperty']);
 Route::post('/updateRent/{id}',[HouseController::class,'updateRent']);
@@ -38,8 +38,6 @@ Route::get('/GetDetails/{id}',[HouseController::class,'findMyRenting']);
 Route::get('/MyCreated/{id}',[HouseController::class,'MyCreated']);
 Route::get('/usernumbers/{id}',[HouseController::class,'numerofposts_and_favourits']);
 Route::post('/Favourite',[FavouritController::class,'AddFavourit']);
-Route::get('/Favourite/{id}',[FavouritController::class,'UnFavourit']);
-Route::get('/YourFavourite/{id}',[FavouritController::class,'Favouritforuser']);
 
 
 
@@ -57,8 +55,6 @@ Route::post('/update-profile-picture/{id}', [UserController::class, 'updateProfi
 
 
 
-// Ruta para agregar una casa
-Route::post('/createRent', [HouseController::class, 'store']);
 
 
 
