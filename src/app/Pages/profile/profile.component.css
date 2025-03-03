@@ -1,0 +1,196 @@
+.ss{
+    background-color: rgb(197, 197, 197);
+    border-radius: 8px;
+    height: 500px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+.sss{
+    max-height: 500px !important;
+}
+
+
+.info{
+    font-weight: 500;
+    margin-bottom: 0px;
+    margin-top: 5px;
+    font-size: 17px;
+}
+.listing{
+    max-height: 500px !important;
+    height: 500px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+.per{
+    font-weight: 600;
+}
+.profileimg {
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+    margin-top: 50px;
+    margin-bottom: 15px;
+    border: 3px solid #ffffff;
+}
+.top{
+    align-items: center;
+    align-content: center;
+    text-align: center;
+}
+.bottom{
+    margin-top: 30px;
+}
+.aa{
+    width: 100%;
+    background-color: rgb(46, 27, 212);
+    text-align: center;
+    height: 40px;
+    margin-top: 5px;
+    margin-top: 5px;
+    line-height: 40px;
+    border-radius: 8px;
+    color: white;
+    font-weight: 600;
+    border: none;
+}
+
+
+/* Makes the circle 555555555555555555555555555555555555555555555555555555555555555555*/
+.card-title{
+    color: rgb(19, 19, 19);
+}
+
+.prix{
+    font-size: 20px;
+    font-weight: 500;
+}
+.emailicon{
+    padding-left: 5px;
+    width: auto;
+    height: 25px;
+}
+.houseimg{
+    height: 230px;
+}
+.card{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border-radius: 0px;
+    border: none;
+}
+.dd{
+    height: 25px;
+    overflow: hidden;
+}
+.btncard{
+    background-color: #152372 !important;
+    color: white;
+    border-color: #081457;
+    font-weight: 400;
+    height: 40px;
+}
+.btncard:hover{
+    background-color: white !important;
+    color: #081457;
+    border-color: #081457;
+    font-weight: 500;
+    height: 40px;
+}
+.price-tag {
+    display: inline-block;
+    
+    width: 85px;
+    height: 28px;
+    
+    background-color: #081457;
+    -webkit-border-radius: 3px 4px 4px 3px;
+    -moz-border-radius: 3px 4px 4px 3px;
+    border-radius: 3px 4px 4px 3px;
+    
+    border-left: 1px solid #081457;
+  
+    /* This makes room for the triangle */
+    margin-left: 19px;
+    
+    position: relative;
+    
+    color: white;
+    line-height: 28px;
+  
+    padding: 0 10px 0 10px;
+  }
+  
+  /* Makes the triangle */
+.price-tag:before {
+content: "";
+position: absolute;
+display: block;
+left: -19px;
+width: 0;
+height: 0;
+border-top: 14px solid transparent;
+border-bottom: 14px solid transparent;
+border-right: 19px solid #081457;
+}
+
+/* Makes the circle */
+.price-tag:after {
+content: "";
+background-color: white;
+border-radius: 50%;
+width: 4px;
+height: 4px;
+display: block;
+position: absolute;
+left: -10px;
+top: 13px;
+}
+
+
+/* update butoun */
+
+.button-5 {
+    align-items: center;
+    background-clip: padding-box;
+    background-color: #4042e0;
+    border: 1px solid transparent;
+    border-radius: .25rem;
+    box-shadow: rgba(0, 0, 0, 0.02) 0 1px 3px 0;
+    box-sizing: border-box;
+    color: #fff;
+    cursor: pointer;
+    display: inline-flex;
+    font-family: system-ui,-apple-system,system-ui,"Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    justify-content: center;
+    line-height: 1.25;
+    margin: 0;
+    min-height: 3rem;
+    padding: calc(.875rem - 1px) calc(1.5rem - 1px);
+    position: relative;
+    text-decoration: none;
+    transition: all 250ms;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    vertical-align: baseline;
+    width: auto;
+}
+
+.button-5:hover,
+.button-5:focus {
+background-color: #30ce00;
+box-shadow: rgba(0, 0, 0, 0.1) 0 4px 12px;
+}
+
+.button-5:hover {
+transform: translateY(-1px);
+}
+
+.button-5:active {
+background-color: #30ce00;
+box-shadow: rgba(0, 0, 0, .06) 0 2px 4px;
+transform: translateY(0);
+}

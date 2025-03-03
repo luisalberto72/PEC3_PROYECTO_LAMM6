@@ -1,0 +1,60 @@
+.haftitle{
+  color: #081457;
+}
+.icon{
+  margin: 0px;
+  padding: 0px;
+  width: 200px;
+  height: 200px;
+}
+
+header {
+  background-color:#00bf63/* Gris claro */
+}
+
+.log{
+  color: white !important;
+  border-radius: 5px;
+  margin-left: 8px;
+  border: none;
+  height: 40px;
+  background-color: #132066 !important;
+}
+.log:hover{
+  color: white !important;
+  border-radius: 5px;
+  margin-left: 8px;
+  border: none;
+  height: 40px;
+  background-color: #001dc4 !important;
+  transform: translateY(-1px);
+
+}
+.nav-link{
+  font-weight: 500;
+}
+.profileimg{
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  padding: 0px;
+  margin-left: 10px;
+}
+nav{
+  margin-bottom: 5px;
+}
+@media only screen and (max-width: 768px){
+  .log{
+  color: rgb(255, 255, 255) !important;
+  border-radius: 5px;
+  margin-left: 0px;
+  margin-top: 5px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.ss{
+  width: 100%;
+}
+
+}

@@ -1,0 +1,141 @@
+#carouselExample{
+max-width: 560px !important;
+max-height: 560px !important;
+}
+#map{
+    height: 380px;
+    width: 100%;
+}
+.iconsave{
+    padding-left: 10px;
+}
+.info{
+    font-weight: bold;
+    font-size: 20px;
+}
+.title{
+    font-size: 2rem;
+}
+.hearticon{
+    height: 20px;
+    margin-left: 5px;
+}
+.titre{
+    font-size: 18px !important;
+    font-weight: 500;
+}
+.description{
+    border: 1px solid #e6e6e6;
+    border-radius: 10px;
+    padding: 5px;
+    width: 200%;
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+}
+.ss{
+    height: 380px;
+}
+hr{
+    width: 200%;
+    color: #200ec2;
+}
+.button-5 {
+    align-items: center;
+    background-clip: padding-box;
+    background-color: #fa6400;
+    border: 1px solid transparent;
+    border-radius: .25rem;
+    box-shadow: rgba(0, 0, 0, 0.02) 0 1px 3px 0;
+    box-sizing: border-box;
+    color: #fff;
+    cursor: pointer;
+    display: inline-flex;
+    font-family: system-ui,-apple-system,system-ui,"Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    justify-content: center;
+    line-height: 1.25;
+    margin: 0;
+    min-height: 3rem;
+    padding: calc(.875rem - 1px) calc(1.5rem - 1px);
+    position: relative;
+    text-decoration: none;
+    transition: all 250ms;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    vertical-align: baseline;
+    width: auto;
+  }
+
+.button-5:hover,
+.button-5:focus {
+background-color: #30ce00;
+box-shadow: rgba(0, 0, 0, 0.1) 0 4px 12px;
+}
+
+.button-5:hover {
+transform: translateY(-1px);
+}
+
+.button-5:active {
+background-color: #30ce00;
+box-shadow: rgba(0, 0, 0, .06) 0 2px 4px;
+transform: translateY(0);
+}
+.button-6 {
+    align-items: center;
+    background-clip: padding-box;
+    background-color: #1d186b;
+    border: 1px solid transparent;
+    border-radius: .25rem;
+    box-shadow: rgba(0, 0, 0, 0.02) 0 1px 3px 0;
+    box-sizing: border-box;
+    color: #fff;
+    cursor: pointer;
+    display: inline-flex;
+    font-family: system-ui,-apple-system,system-ui,"Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    justify-content: center;
+    line-height: 1.25;
+    margin: 0;
+    min-height: 3rem;
+    padding: calc(.875rem - 1px) calc(1.5rem - 1px);
+    position: relative;
+    text-decoration: none;
+    transition: all 250ms;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    vertical-align: baseline;
+    width: auto;
+  }
+
+.button-6:hover,
+.button-6:focus {
+background-color: #200ec2;
+box-shadow: rgba(0, 0, 0, 0.1) 0 4px 12px;
+}
+
+.button-6:hover {
+transform: translateY(-1px);
+}
+
+.button-6:active {
+background-color: #200ec2;
+box-shadow: rgba(0, 0, 0, .06) 0 2px 4px;
+transform: translateY(0);
+}
+@media only screen and (max-width: 768px){
+    .description{
+        border: 1px solid #e6e6e6;
+        border-radius: 10px;
+        padding: 5px;
+        width: 100%;
+        box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+    }
+    hr{
+        width: 100%;
+        color: #200ec2;
+    }
+  }

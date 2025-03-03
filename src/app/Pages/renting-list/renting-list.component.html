@@ -1,0 +1,89 @@
+<div class="container">
+  <div class="search mb-3">
+    <p>
+      <button class="btn btnfilter btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+        FILTER   <i class="fa-solid fa-sort" style="color: #ffffff;"></i>
+      </button>
+    </p>
+    <div class="collapse" id="collapseExample">
+      <div class="card card-body d-in">
+        <div class="row d-block d-md-flex g-3">
+          <div class="col-2 ff">
+            <label for="Ville"  class="tem">Ville</label>
+          </div>
+          <div class="col-4 ff">
+            <input type="text" class="tem form-control" [(ngModel)]="Pville" name="Pville" placeholder="Rabat">
+          </div>
+          <div class="col-2">
+            <label for="Ville"  class="tem">Type</label>
+          </div>
+          <div class="col-4 ff">
+            <select id="inputState" [(ngModel)]="Ptype" name="Ptype" class="form-select tem">
+              <option>Appartment</option>
+              <option>House</option>
+              <option>Cafe</option>
+              <option>Resturent</option>
+              <option>Store</option>
+              <option>Villa</option>
+              <option>Others</option>
+              </select>
+          </div>
+
+          <div class="col-2 ff">
+            <label for="Ville"  class="tem">Status</label>
+          </div>
+          <div class="col-4 ff">
+                <select id="inputState" [(ngModel)]="Pstatus" name="Pstatus" class="form-select tem">
+                  <option>For Rent</option>
+                  <option>For Sale</option>
+                </select>
+            </div>
+
+            <div class="col-2 ff">
+              <label for="Ville"  class="tem">Date</label>
+            </div>
+            <div class="col-4 ff">
+                  <select id="inputState" [(ngModel)]="Pdate" name="Pdate" class="form-select tem">
+                    <option>New to Old</option>
+                    <option>Old to New</option>
+                  </select>
+            </div>
+
+          <div class="col-12">
+            <button type="button" (click)=" search()" class="btn button-66 float-end">Searche</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+    <div class="row">
+      <ng-container *ngFor="let P of Perporty | paginate: { itemsPerPage: 6, currentPage: p }">
+
+        <div class="col-sm-12 col-md-6 col-lg-4">
+          <div class="card Pcard" >
+            <img class="card-img-top houseimg" src="http://127.0.0.1:8000/storage/Houses/image/{{P.HouseImage1}}" alt="Card image cap">
+            <div class="card-body p-1">
+              <div class="">
+              <label class="float-right prix">{{P.Price}} DH</label>
+              <label class="float-end price-tag">{{P.Status}}</label>
+              </div>
+              <p class="card-text"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-geo-alt-fill" viewBox="0 0 16 16">
+                <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/>
+              </svg>{{P.Adresse}}</p>
+              <a  class="btn btncard detailbtn" routerLink="Property/{{P.id}}">Detaile</a>
+              <a class="btn btncardd float-end" (click)="AddFavourite(P.id)"><i class="fa-solid fa-bookmark" style="color: #ffffff;"></i></a>
+            </div>
+          </div>
+        </div>
+      
+
+      </ng-container>
+      <div class="d-flex align-items-center justify-content-center mt-5 mb-5">
+        <pagination-controls (pageChange)="p = $event"></pagination-controls>
+      </div>
+      
+      
+      
+    </div>
+  </div>
+  

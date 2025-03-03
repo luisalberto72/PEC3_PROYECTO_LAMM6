@@ -1,0 +1,19 @@
+
+.signtitle{
+    font-size: 40px !important;
+    color: #081457;
+    font-weight: bold;
+  }
+.boutn{
+  background-color: #081457;
+  color: white;
+  font-weight: 500;
+  border: 2px solid #081457;
+
+}
+.boutn:hover{
+  background-color: white;
+  color: #081457;
+  border: 2px solid #081457;
+  font-weight: 500;
+}

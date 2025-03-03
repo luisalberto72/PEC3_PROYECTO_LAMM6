@@ -1,0 +1,42 @@
+<section class="animate__animated animate__slideInDown">
+    <div class="container-fluid h-custom">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col-md-5 text-center d-none d-md-block text-md-start">
+          <img src="assets/login2.png" class="img-fluid" alt="Sample image">
+        </div>
+        <div class="col-md-5 px-5 text-center text-md-end">
+          <form>
+            <div class="d-flex  flex-row text-center mb-4 align-items-center justify-content-center justify-content-lg-center">
+              <label class="signtitle" for="email">Sign in</label>
+            </div>
+            <!-- Email input -->
+            <div class="form-outline mb-4">
+              <input type="email" name="email" #useremail id="Email" class="form-control form-control-lg"
+                placeholder="Enter a valid email address" required/>
+              <label class="form-label" for="form3Example3">Email address</label>
+            </div>
+  
+            <!-- Password input -->
+            <div class="form-outline mb-3">
+              <input type="password" name="password" #userpass id="password" class="form-control form-control-lg"
+                placeholder="Enter password" required/>
+              <label class="form-label" for="password">Password</label>
+            </div>
+            <div class="text-center text-lg-start mt-4 pt-2">
+              <button type="button" class="btn boutn btn-lg"
+                style="padding-left: 2.5rem; padding-right: 2.5rem;" (click)="submit(useremail.value,userpass.value)">Login</button>
+                
+                
+              <p class="small fw-bold mt-2 pt-1 mb-0">Don't have an account? <a routerLink="/Register"
+                  class="link-danger">Register</a></p>
+                  
+            </div>
+            
+
+
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+  

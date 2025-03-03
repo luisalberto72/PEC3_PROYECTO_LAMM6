@@ -1,0 +1,180 @@
+.card-title{
+    color: rgb(19, 19, 19);
+}
+.btnfilter{
+    width: 100%;
+    background-color: #4e4e4e;
+    font-weight: 600;
+    border: none;
+    border-radius: 5px;
+}
+.detailbtn{
+    width: 100px;
+}
+.btnfilter:hover{
+    width: 100%;
+    background-color: #312e50;
+    font-weight: 600;
+    border: none;
+    border-radius: 5px;
+}
+.prix{
+    font-size: 20px;
+    font-weight: 500;
+}
+.emailicon{
+    padding-left: 5px;
+    width: auto;
+    height: 25px;
+}
+.houseimg{
+    height: 245px;
+}
+.Pcard{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border-radius: 0px;
+    border: none;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+}
+.Pcard:hover{
+    transform: translateY(-2px);
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+}
+.btncard{
+    background-color: #0c1964 !important;
+    color: white;
+    font-weight: 500;
+    height: 40px;
+    border: none;
+    margin: 5px;
+}
+.btncardd{
+  background-color: #0c1964 !important;
+  color: white;
+  height: 40px;
+  width: 40px;
+  border: none;
+  margin: 5px;
+}
+.btncardd:hover{
+  background-color: #1b3dff !important;
+  color: white;
+  font-weight: 500;
+  margin: 5px;
+}
+.btncard:hover {
+    background-color: #fdfdfd !important;
+    transform: translateY(-2px);
+    color: #2b4aff;
+    border: 2px solid #0c1964;
+  }
+.price-tag {
+    display: inline-block;
+    
+    width: 85px;
+    height: 28px;
+    
+    background-color: #081457;
+    -webkit-border-radius: 3px 4px 4px 3px;
+    -moz-border-radius: 3px 4px 4px 3px;
+    border-radius: 3px 4px 4px 3px;
+    
+    border-left: 1px solid #081457;
+  
+    /* This makes room for the triangle */
+    margin-left: 19px;
+    
+    position: relative;
+    
+    color: white;
+    line-height: 28px;
+  
+    padding: 0 10px 0 10px;
+  }
+  
+  /* Makes the triangle */
+.price-tag:before {
+content: "";
+position: absolute;
+display: block;
+left: -19px;
+width: 0;
+height: 0;
+border-top: 14px solid transparent;
+border-bottom: 14px solid transparent;
+border-right: 19px solid #081457;
+}
+
+/* Makes the circle */
+.price-tag:after {
+content: "";
+background-color: white;
+border-radius: 50%;
+width: 4px;
+height: 4px;
+display: block;
+position: absolute;
+left: -10px;
+top: 13px;
+}
+/* i {
+    font-size: 18px;
+}
+i:hover {
+    font-size: 20px;
+    color: #081457 !important;
+} */
+
+
+
+/* CSS  search boutton*/
+.button-66 {
+  background-color: #585858;
+  border-radius: 4px;
+  border: 0;
+  box-shadow: rgba(1,60,136,.5) 0 -1px 3px 0 inset,rgba(0,44,97,.1) 0 3px 6px 0;
+  box-sizing: border-box;
+  color: #fff;
+  cursor: pointer;
+  display: inherit;
+  font-family: "Space Grotesk",-apple-system,system-ui,"Segoe UI",Roboto,Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 8px;
+  margin: 0;
+  max-height: 40px;
+  min-width: 120px;
+  padding: 16px 20px;
+  position: relative;
+  text-align: center;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  vertical-align: baseline;
+  transition: all .2s cubic-bezier(.22, .61, .36, 1);
+}
+
+.button-66:hover {
+  background-color: #065dd8;
+  transform: translateY(-2px);
+}
+
+
+
+@media (min-width: 768px) {
+  .button-66 {
+    padding: 16px 44px;
+    min-width: 150px;
+  }
+}
+@media (max-width: 768px) {
+    .tem {
+      
+      width: 100% !important;
+    }
+    .ff {
+      
+        width: 100% !important;
+      }
+  }

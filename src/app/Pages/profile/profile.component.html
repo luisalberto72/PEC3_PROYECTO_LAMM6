@@ -1,0 +1,78 @@
+<div class="container main">
+  <form class="row g-3">
+    <div class="col-md-3 ss">
+      <div class="top">
+        <img [src]="'http://127.0.0.1:8000/storage/' + Profile_pictures" class="profileimg" alt="Foto de perfil">
+
+
+
+        <label class="form-label d-block per" for="">{{First_name}} {{Last_name}}</label>
+        <div class="row">
+          <div class="col">
+            <label class="d-block per">Posts</label>
+            <label class="d-block ">{{nmbrPosts}}</label>
+          </div>
+          <div class="col">
+            <label class="d-block per">Favourite</label>
+            <label class="d-block">{{nbrFavourit}}</label>
+          </div>
+        </div>
+      </div> 
+      <div class="bottom">
+        <button class="d-block aa" (click)="showPersonnelInfo()">Personnel Information</button>
+        <button class="d-block aa" (click)="showCreatedProperty()">My Posts</button>
+        <button class="d-block aa" (click)="showFavouriteProperty()">My Favourite Posts</button>
+      </div> 
+    </div> 
+
+    <div class="col-md-9 sss">
+      <!-- Información Personal -->
+      <form class="row g-3" *ngIf="profile">
+        <div class="col-md-12">
+          <label class="form-label info">Información Personal</label>
+        </div>
+        <div class="col-md-6">
+          <label for="inputEmail4" class="form-label">Primer Nombre</label>
+          <input type="text" class="form-control" [(ngModel)]="First_name" name="First_name">
+        </div>
+        <div class="col-md-6">
+          <label for="inputPassword4" class="form-label">Segundo Nombre</label>
+          <input type="text" class="form-control" [(ngModel)]="Last_name" name="Last_name">
+        </div>
+        <div class="col-12">
+          <label class="form-label">Dirección</label>
+          <input type="text" class="form-control" [(ngModel)]="Address" name="Address">
+        </div>
+        <div class="col-md-4">
+          <label for="inputState" class="form-label">Sexo</label>
+          <select id="inputState" [(ngModel)]="Gender" name="Gender" class="form-select">
+            <option selected>Mujer</option>
+            <option>Hombre</option>
+          </select>
+        </div>
+        <div class="col-md-4">
+          <label for="inputCity" class="form-label">Nacionalidad</label>
+          <input type="text" [(ngModel)]="Nationality" name="Nationality" class="form-control">
+        </div>
+        <div class="col-md-4">
+          <label for="inputZip" class="form-label">Foto de Perfil</label>
+          <input type="file" class="form-control" (change)="uploadimg($event)">
+        </div>
+        <div class="col-md-12">
+          <label class="form-label info">Información de Contacto</label>
+        </div>
+        <div class="col-6">
+          <label for="inputAddress" class="form-label">Email</label>
+          <input type="email" [(ngModel)]="email" name="email" class="form-control">
+        </div>
+        <div class="col-6">
+          <label for="inputAddress" class="form-label">Número de Teléfono</label>
+          <input type="text" [(ngModel)]="Phone_number" name="Phone_number" class="form-control">
+        </div>
+        <div class="col-12">
+          <button type="button" (click)="ActualizarInformation()" class="btn button-5 float-end">Actualizar Perfil</button>
+        </div>
+      </form>
+    </div>
+  </form>
+</div>

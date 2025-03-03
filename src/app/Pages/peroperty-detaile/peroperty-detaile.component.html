@@ -1,0 +1,97 @@
+<div class="container main">
+    <form class="row g-3">
+        <div class="col-md-6">
+            <div id="carouselExample" class="carousel slide">
+                <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="http://127.0.0.1:8000/storage/Houses/image/{{image1}}" class="d-block ss w-100" alt="...">
+                </div>
+                <!-- <div class="carousel-item">
+                    <img src="assets/house1.jpg" class="d-block w-100" alt="...">
+                </div>
+                <div class="carousel-item">
+                    <img src="assets/house1.jpg" class="d-block w-100" alt="...">
+                </div> -->
+                </div>
+                <!-- <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+                </button> -->
+            </div>
+
+            <div class="col-md-12">
+                <label for="inputEmail4" class="form-label title">{{Ptitle}}</label>
+            </div>
+            <div class="col-md-6">
+            <label for="inputPassword4" class="form-label titre">Price : </label>
+            <label for="inputPassword4" class="form-label valeur">{{Pprice}} DH</label>
+            </div>
+            <div class="col-12">
+            <label class="form-label titre">Address : </label>
+            <label class="form-label">{{Padresse}}</label>
+            </div>
+            <hr>
+            <div class="col-md-6">
+                <label for="inputState" class="form-label titre">Status : </label>
+                <label class="form-label">{{Pstatus}}</label>
+            </div>
+                <div class="col-md-6">
+                    <label for="inputState" class="form-label titre">Perproty Type : </label>
+                    <label for="inputState" class="form-label">{{Ptype}}</label>
+                </div>
+                <div class="col-md-6">
+                <label for="inputZip" class="form-label titre">Rental Peroid :</label>
+                <label for="inputZip" class="form-label">{{Prentalperoid}}</label>
+                </div>
+                <div class="col-md-6">
+                    <label for="inputCity" class="form-label titre">City : </label>
+                    <label for="inputCity" class="form-label">{{Pcity}}</label>
+                </div>
+            <div class="col-md-12">
+                <label class="form-label titre">Description</label>
+                <p class="description">{{Pdescription}}</p>
+            </div>
+            <hr>
+            <div class="col-md-12">
+                <label for="inputZip" class="form-label info ">Contact Information</label>
+            </div>
+            <div class="col-12">
+                <label for="inputAddress" class="form-label titre">Email : </label>
+                <label for="inputAddress" class="form-label">{{email}}</label>
+                </div>
+            <div class="col-12">
+                <label for="inputAddress" class="form-label titre">Phone numer : </label>
+                <label for="inputAddress" class="form-label">{{phonenum}}</label>
+            </div>
+        </div> 
+        <div class="col-md-6">
+            <div id="map"></div>
+            <button type="button" (click)="AddFavourite()" class="btn button-6 btn-warning float-end my-3">Favorite <i class="fa-solid fa-bookmark iconsave" style="color: #ffffff;"></i></button>
+
+        </div>
+        <div class="col-12 my-5">
+            <button type="button" class="btn button-5 btn-warning float-end" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Send Email</button>
+        </div>
+  </form>
+  
+</div>
+
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="staticBackdropLabel">Contact</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
