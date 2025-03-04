@@ -36,4 +36,3 @@ Route::get('/dashboard/{filename}', function ($filename) {
 
 
 
-Route::post('/create-house', [HouseController::class, 'store'])->name('create.house');

@@ -2,11 +2,11 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\userController;
-use App\Http\Controllers\Message;
-use App\Http\Controllers\HouseController;
-use App\Http\Controllers\FavouritController;
+use App\Http\Controllers\UserController;
 
+
+
+use App\Http\Controllers\EcolodgeController;
 
 
 
@@ -21,30 +21,32 @@ use App\Http\Controllers\FavouritController;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::middleware(['jwt.auth'])->get('/user', function (Request $request) {
+    return response()->json($request->user());
 });
 
-Route::post('/Register',[userController::class,'Register']);
-Route::post('/Login',[userController::class,'Login']);
-Route::post('/ResetPass',[userController::class,'forgotPassword']);
+// Rutas públicas (sin autenticación)
+Route::post('/register', [UserController::class, 'register']);
+Route::post('/login', [UserController::class, 'login']);
+Route::post('/ResetPass', [UserController::class, 'forgotPassword']);
 
+// Validar token (puede ser útil para depuración)
+Route::post('/TokenTest', [UserController::class, 'ValidateToken']);
 
-Route::post('/UserUpdate/{id}',[userController::class,'updateUser']);
-Route::get('/userinfo/{id}',[userController::class,'userinfo']);
+// Middleware de autenticación JWT
+Route::middleware(['jwt.auth'])->group(function () {
+    // Rutas protegidas de ecolodges
+    Route::post('/ecolodges', [EcolodgeController::class, 'store']);
+    Route::get('/ecolodges', [EcolodgeController::class, 'index']);
 
-Route::post('/TokenTest',[userController::class,'ValidateToken']);
+    // Refrescar token JWT
+    Route::post('/refresh-token', [UserController::class, 'refreshToken']);
+});
+   
+Route::get('/userinfo/{id}', [UserController::class, 'userinfo']);
 
-Route::patch('/usuarios/{id}/perfil', [userController::class, 'updateUser']);
+Route::post('/UserUpdate/{id}', [UserController::class, 'updateUser']);
 Route::post('/update-profile-picture/{id}', [UserController::class, 'updateProfilePicture']);
-
-
-
-
-
-
-
-
 
 
 

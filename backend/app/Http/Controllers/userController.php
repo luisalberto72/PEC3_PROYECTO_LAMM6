@@ -51,16 +51,20 @@ class UserController extends Controller
     public function login(Request $request)
     {
         $credentials = $request->only('email', 'password');
-
+    
         try {
             if (!$token = JWTAuth::attempt($credentials)) {
                 return response()->json([
                     'status' => 0,
                     'code' => 401,
                     'data' => null,
-                    'message' => 'Email or password incorrect'
+                    'message' => 'Invalid credentials'
                 ]);
             }
+    
+            // Si quieres asegurarte de que el campo `iss` sea correcto:
+            $token = JWTAuth::fromUser(auth()->user(), ['iss' => 'http://localhost:8000/api/login']);
+    
         } catch (JWTException $e) {
             return response()->json([
                 'code' => 500,
@@ -68,21 +72,21 @@ class UserController extends Controller
                 'message' => 'Could not create token'
             ]);
         }
-
-        $user = auth()->user();
-
+    
         return response()->json([
             'status' => 1,
             'code' => 200,
             'data' => [
                 'token' => $token,
-                'first_name' => $user->first_name,
-                'last_name' => $user->last_name,
-                'email' => $user->email
+                'first_name' => auth()->user()->first_name,
+                'last_name' => auth()->user()->last_name,
+                'email' => auth()->user()->email,
+                
             ],
             'message' => 'Login successful'
         ]);
     }
+    
 
     public function userinfo($id)
     {
@@ -226,4 +230,18 @@ class UserController extends Controller
 
         return response()->json($exists ? "Token is valid" : "Token is not valid");
     }
+
+    public function refreshToken()
+{
+    try {
+        return response()->json([
+            'access_token' => auth()->refresh(),
+            'token_type' => 'bearer',
+            'expires_in' => auth()->factory()->getTTL() * 60
+        ]);
+    } catch (Exception $e) {
+        return response()->json(['error' => 'No se pudo renovar el token'], 401);
+    }
+}
+
 }

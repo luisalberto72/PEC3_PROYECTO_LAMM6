@@ -1,0 +1,38 @@
+<section id="AddEcolodge">
+  <div class="container">
+    <div class="row justify-content-center align-items-center">
+      <div class="col-md-8">
+        <div class="card shadow-lg p-4">
+          <h2 class="text-center mb-4">Agregar Ecolodge</h2>
+          <form [formGroup]="ecolodgeForm" (ngSubmit)="saveEcolodge()">
+            <div class="mb-3">
+              <label for="nombre" class="form-label">Nombre</label>
+              <input type="text" id="nombre" class="form-control" formControlName="nombre" placeholder="Nombre" required>
+            </div>
+            <div class="mb-3">
+              <label for="descripcion" class="form-label">Descripción</label>
+              <textarea id="descripcion" class="form-control" formControlName="descripcion" placeholder="Descripción" required></textarea>
+            </div>
+            <div class="mb-3">
+              <label for="ubicacion" class="form-label">Ubicación</label>
+              <input type="text" id="ubicacion" class="form-control" formControlName="ubicacion" placeholder="Ubicación" required>
+            </div>
+            <div class="mb-3">
+              <label for="precio" class="form-label">Precio</label>
+              <input type="number" id="precio" class="form-control" formControlName="precio" placeholder="Precio" required>
+            </div>
+            <div class="mb-3 form-check">
+              <input type="checkbox" id="disponible" class="form-check-input" formControlName="disponible">
+              <label for="disponible" class="form-check-label">Disponible</label>
+            </div>
+            <div class="mb-3 form-check">
+              <input type="checkbox" id="paneles_solares" class="form-check-input" formControlName="paneles_solares">
+              <label for="paneles_solares" class="form-check-label">Paneles Solares</label>
+            </div>
+            <button type="submit" class="btn btn-primary w-100" [disabled]="ecolodgeForm.invalid">Guardar</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

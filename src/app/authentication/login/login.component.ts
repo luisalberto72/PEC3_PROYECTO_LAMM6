@@ -49,7 +49,7 @@ export class LoginComponent implements OnInit {
             localStorage.setItem('email', this.data.data.email);
 
             this.toastr.success('Login Successful');
-            this.router.navigate(['/Explore']); // Redirige a Explore
+            this.router.navigate(['/add-ecolodge']); // Redirige a Ecolodge
           } else {
             this.toastr.warning('Email or Password Incorrect!');
           }

@@ -1,4 +1,5 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 
@@ -13,6 +14,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SocialLoginModule, SocialAuthServiceConfig, GoogleLoginProvider } from '@abacritt/angularx-social-login';
 import { ProfileComponent } from './Pages/profile/profile.component';
+import { EcolodgeFormComponent } from './components/ecolodge-form/ecolodge-form.component';
+import { EcolodgeListComponent } from './components/ecolodge-list/ecolodge-list.component';
+import { AuthInterceptor } from './interceptors/auth.interceptor';
 
 @NgModule({
   declarations: [
@@ -20,8 +24,9 @@ import { ProfileComponent } from './Pages/profile/profile.component';
     LoginComponent,
     RegisterComponent,
     LandingPageComponent,
-   
-    ProfileComponent
+    ProfileComponent,
+    EcolodgeFormComponent,
+    EcolodgeListComponent
   ],
   imports: [
     BrowserModule,
@@ -46,7 +51,8 @@ import { ProfileComponent } from './Pages/profile/profile.component';
         ],
         onError: (err) => console.error(err)
       } as SocialAuthServiceConfig
-    }
+    },
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
   ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]

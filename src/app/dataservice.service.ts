@@ -1,47 +1,62 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DataService {
-  
   private url: string = 'http://localhost:8000/api';
 
   constructor(private http: HttpClient) {}
 
-  // Registro y autenticación
-  public registerUser(data: any) {
-    return this.http.post(`${this.url}/Register`, data);
+  // REGISTRO Y AUTENTICACIÓN
+  public registerUser(data: any): Observable<any> {
+    return this.http.post(`${this.url}/register`, data);
   }
 
-  public loginUser(data: any) {
-    return this.http.post(`${this.url}/Login`, data);
+  public loginUser(data: any): Observable<any> {
+    return this.http.post(`${this.url}/login`, data);
   }
 
-  // Información del usuario
-  public getUserInfo(userId: any) {
-    return this.http.get<any>(`${this.url}/userinfo/${userId}`);
+  // OBTENER INFORMACIÓN DEL USUARIO
+  public getUserInfo(userId: any): Observable<any> {
+    return this.http.get<any>(`${this.url}/userinfo/${userId}`, { headers: this.getAuthHeaders() });
   }
 
-  public updateUserProfile(data: any, id: any) {
-    return this.http.post(`${this.url}/UserUpdate/${id}`, data);
+  public updateUserProfile(data: any, id: any): Observable<any> {
+    return this.http.post(`${this.url}/UserUpdate/${id}`, data, { headers: this.getAuthHeaders() });
   }
 
-  // Token
-  public validateToken(data: any) {
-    return this.http.post(`${this.url}/TokenTest`, data);
+  // VALIDAR TOKEN
+  public validateToken(data: any): Observable<any> {
+    return this.http.post(`${this.url}/TokenTest`, data, { headers: this.getAuthHeaders() });
   }
 
-  // Variable compartida
-  private sharedVariable: any;
-
-  public updateSharedVariable(newValue: any) {
-    this.sharedVariable = newValue;
+  // REFRESCAR TOKEN
+  public refreshToken(): Observable<any> {
+    return this.http.post(`${this.url}/refresh`, {}, { headers: this.getAuthHeaders() });
   }
 
-  public getSharedVariable() {
-    return this.sharedVariable;
+  //  MANEJO DEL TOKEN
+  public saveToken(token: string): void {
+    localStorage.setItem('token', token);
+  }
+
+  public getToken(): string | null {
+    return localStorage.getItem('token');
+  }
+
+  public removeToken(): void {
+    localStorage.removeItem('token');
+  }
+
+  // OBTENER HEADERS CON TOKEN
+  private getAuthHeaders(): HttpHeaders {
+    const token = this.getToken();
+    return new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
   }
 }
+
