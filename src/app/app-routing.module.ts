@@ -7,6 +7,7 @@ import { ProfileComponent } from './Pages/profile/profile.component';
 import { authGuard } from './AuthGuard/auth.guard.service';
 import { EcolodgeFormComponent } from './components/ecolodge-form/ecolodge-form.component';  // Agregar
 import { EcolodgeListComponent } from './components/ecolodge-list/ecolodge-list.component';  // Agregar
+import { EditEcolodgeComponent } from './edit-ecolodge/edit-ecolodge.component';
 
 const routes: Routes = [
   { path: 'register', component: RegisterComponent },
@@ -14,6 +15,7 @@ const routes: Routes = [
   { path: 'profile', component: ProfileComponent, canActivate: [authGuard] },
   { path: 'add-ecolodge', component: EcolodgeFormComponent, canActivate: [authGuard] },  // Ruta para agregar casas
   { path: 'list-ecolodges', component: EcolodgeListComponent },  // Ruta para listar casas
+  { path: 'editar-ecolodge/:id', component: EditEcolodgeComponent },
   { path: '', component: LandingPageComponent },
 ];
 

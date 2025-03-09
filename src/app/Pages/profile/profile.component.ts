@@ -110,7 +110,7 @@ export class ProfileComponent implements OnInit {
         }
         setTimeout(() => {
           window.location.reload();
-        }, 1000);
+        }, 500);
       },
       error: (error) => {
         console.error('Error al actualizar perfil:', error);

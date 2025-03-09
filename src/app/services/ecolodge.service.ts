@@ -2,14 +2,18 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, Observable, tap, throwError } from 'rxjs';
 import jwt_decode from 'jwt-decode';  // Importamos la librería para decodificar el JWT
+import { DataService } from 'app/dataservice.service';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class EcolodgeService {
   private apiUrl = 'http://127.0.0.1:8000/api/ecolodges';
+  private api='http://127.0.0.1:8000/api';
+ 
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient,private dataService: DataService) {}
 
 
 
@@ -28,7 +32,7 @@ isTokenExpired(token: string): boolean {
 
 
   private getAuthHeaders(): HttpHeaders {
-    const token = localStorage.getItem('token');  // Obtener el token del localStorage
+    const token = localStorage.getItem('user');  // Obtener el token del localStorage
     if (!token) {
       throw new Error('Token is missing');  // Puedes lanzar un error o manejar la falta del token
     }
@@ -36,7 +40,7 @@ isTokenExpired(token: string): boolean {
       'Authorization': `Bearer ${token}`  // Añadir el token al encabezado de autorización
     });
   }
-  // Método para obtener el ID del usuario desde el token JWT
+ 
 
   refreshToken(): Observable<any> {
     return this.http.post(`${this.apiUrl}/refresh-token`, {}, { headers: this.getAuthHeaders() })
@@ -52,8 +56,8 @@ isTokenExpired(token: string): boolean {
   }
   
   getUserId(): number | null {
-  const token = localStorage.getItem('token');
-  console.log("luisssss:", token);
+  const token = localStorage.getItem('user');
+
   if (token) {
     try {
       const decodedToken: any = jwt_decode(token);
@@ -73,6 +77,17 @@ isTokenExpired(token: string): boolean {
     return this.http.get(this.apiUrl, { headers: this.getAuthHeaders() });
   }
 
+  // Método para obtener un ecolodge por su ID
+  getEcolodgeById(id: number): Observable<any> {
+    return this.http.get(`${this.apiUrl}/${id}`, { headers: this.getAuthHeaders() })
+      .pipe(
+        catchError((error) => {
+          console.error("Error al obtener el ecolodge por ID:", error);
+          return throwError(() => new Error(error));
+        })
+      );
+  }
+
   // Método para guardar un ecolodge
   saveEcolodge(data: any): Observable<any> {
     console.log("Token almacenado:", localStorage.getItem('token'));
@@ -81,6 +96,15 @@ isTokenExpired(token: string): boolean {
     
     const propietarioId = this.getUserId();
     console.log("Propietario ID:", propietarioId);
+
+  const userRole = localStorage.getItem('role'); // Asumiendo que el rol está guardado en el localStorage
+  console.log("userRole",userRole);
+  // Verificamos que el usuario tenga el rol de propietario
+  if (userRole !== 'owner' && userRole !== 'both' ) {
+    console.error('Solo los propietarios pueden guardar un ecolodge.');
+    return throwError(() => new Error('Acción no permitida: solo los propietarios pueden agregar un ecolodge.'));
+  }
+
     if (!propietarioId) {
       console.error('Usuario no autenticado, no se puede guardar el ecolodge.');
       return throwError(() => new Error('Usuario no autenticado'));
@@ -92,7 +116,7 @@ isTokenExpired(token: string): boolean {
   data.disponible = data.disponible ? 1 : 0; // Lo mismo para el campo 'disponible'
 
   // Aseguramos que propietario_id sea un número (bigint)
-  data.propietario_id = propietarioId; 
+  data.propietario_id = Number(propietarioId); 
   console.log("Datos que se envían:", data);
   
     return this.http.post(this.apiUrl, data, { headers: this.getAuthHeaders() })
@@ -102,6 +126,36 @@ isTokenExpired(token: string): boolean {
           return throwError(() => new Error(error)); // Use throwError with new signature
         })
       );
+  }
+
+  filtrarEcolodges(solar: boolean | null, available: boolean | null, propietarioId: number | null): Observable<any[]> {
+    let queryParams: string[] = [];
+    if (solar !== null) {
+      queryParams.push(`paneles_solares=${solar ? 1 : 0}`);
+    }
+    if (available !== null) {
+      queryParams.push(`disponible=${available ? 1 : 0}`);
+    }
+    if (propietarioId !== null) {
+      queryParams.push(`propietario_id=${propietarioId}`);
+    }
+    const query = queryParams.length ? `?${queryParams.join('&')}` : '';
+
+    const token = localStorage.getItem('user');  // O desde donde tengas el token JWT
+ 
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+
+    return this.http.get<any[]>(`${this.api}/ecolodges-filtrar${query}`, { headers });
+}
+
+  updateEcolodge(id: number, data: any): Observable<any> {
+    return this.http.put(`${this.api}/ecolodges/${id}`, data);
+  }
+
+  deleteEcolodge(id: number): Observable<any> {
+    return this.http.delete(`${this.api}/ecolodges/${id}`, {
+      headers: this.getAuthHeaders()
+    });
   }
 
   logout() {

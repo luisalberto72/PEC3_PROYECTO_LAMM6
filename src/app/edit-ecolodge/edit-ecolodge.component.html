@@ -1,0 +1,39 @@
+<div class="edit-ecolodge-container">
+    <h2>Editar Ecolodge</h2>
+    <form [formGroup]="ecolodgeForm?.value" (ngSubmit)="onSubmit()">
+      <div>
+        <label for="name">Nombre</label>
+        <input id="name" formControlName="name" type="text" />
+      </div>
+  
+      <div>
+        <label for="location">Ubicación</label>
+        <input id="location" formControlName="location" type="text" />
+      </div>
+  
+      <div>
+        <label for="description">Descripción</label>
+        <textarea id="description" formControlName="description"></textarea>
+      </div>
+  
+      <div>
+        <label for="price_per_night">Precio por noche</label>
+        <input id="price_per_night" formControlName="price_per_night" type="number" />
+      </div>
+  
+      <div>
+        <label for="has_solar_panels">¿Tiene paneles solares?</label>
+        <input id="has_solar_panels" formControlName="has_solar_panels" type="checkbox" />
+      </div>
+  
+      <div>
+        <label for="is_available">¿Está disponible?</label>
+        <input id="is_available" formControlName="is_available" type="checkbox" />
+      </div>
+  
+      <div>
+        <button type="submit" [disabled]="!ecolodgeForm?.valid">Actualizar</button>
+      </div>
+    </form>
+  </div>
+  

@@ -65,12 +65,15 @@ export class RegisterComponent {
 
       // Llamada al servicio para registrar al usuario
       this.dataserv.registerUser(this.user).subscribe(res => {
+        
         this.data = res;
+        console.log("res",this.data);
+        
         if (res === 0) {
           this.toastr.error('Email already registered');
         } else {
           this.toastr.success('Register successfully');
-          this.router.navigate(['/Login']);
+          this.router.navigate(['/login']);
         }
       });
     }

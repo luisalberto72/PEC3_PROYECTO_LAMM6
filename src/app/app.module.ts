@@ -17,6 +17,8 @@ import { ProfileComponent } from './Pages/profile/profile.component';
 import { EcolodgeFormComponent } from './components/ecolodge-form/ecolodge-form.component';
 import { EcolodgeListComponent } from './components/ecolodge-list/ecolodge-list.component';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
+import { DataService } from './dataservice.service';
+import { EditEcolodgeComponent } from './edit-ecolodge/edit-ecolodge.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +28,8 @@ import { AuthInterceptor } from './interceptors/auth.interceptor';
     LandingPageComponent,
     ProfileComponent,
     EcolodgeFormComponent,
-    EcolodgeListComponent
+    EcolodgeListComponent,
+    EditEcolodgeComponent
   ],
   imports: [
     BrowserModule,
@@ -52,7 +55,8 @@ import { AuthInterceptor } from './interceptors/auth.interceptor';
         onError: (err) => console.error(err)
       } as SocialAuthServiceConfig
     },
-    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+    DataService
   ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]

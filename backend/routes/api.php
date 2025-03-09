@@ -48,5 +48,14 @@ Route::get('/userinfo/{id}', [UserController::class, 'userinfo']);
 Route::post('/UserUpdate/{id}', [UserController::class, 'updateUser']);
 Route::post('/update-profile-picture/{id}', [UserController::class, 'updateProfilePicture']);
 
+// Actualizar un Ecolodge
+Route::middleware('auth:api')->put('/ecolodges/{id}', [EcolodgeController::class, 'update']);
 
+// Eliminar un Ecolodge
+Route::middleware('auth:api')->delete('ecolodges/{id}', [EcolodgeController::class, 'destroy']);
+
+
+
+// Filtro avanzado
+Route::middleware('auth:api')->get('/ecolodges-filtrar', [EcolodgeController::class, 'filtrarEcolodges']);
 

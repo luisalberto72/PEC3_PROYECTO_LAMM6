@@ -10,6 +10,7 @@ import { EcolodgeService } from '../../services/ecolodge.service';
 })
 export class EcolodgeFormComponent implements OnInit {
   ecolodgeForm!: FormGroup;  // Usamos el operador "!" para indicar que no es nulo ni indefinido
+  router: any;
 
   constructor(
     private ecolodgeService: EcolodgeService,
@@ -26,6 +27,8 @@ export class EcolodgeFormComponent implements OnInit {
       disponible: [false],
       paneles_solares: [false]
     });
+    
+
   }
 
   saveEcolodge() {
@@ -34,7 +37,7 @@ export class EcolodgeFormComponent implements OnInit {
     // Obtener el ID del usuario autenticado (esto puede depender de cómo gestionas la autenticación)
     const propietarioId = this.ecolodgeService.getUserId(); // Asegúrate de tener un servicio que te dé el ID del usuario autenticado
   
-    
+    console.log("propietarioId Data:", propietarioId );
     // Agregar el propietario_id al objeto del formulario
     const ecolodgeData = {
       ...this.ecolodgeForm.value,

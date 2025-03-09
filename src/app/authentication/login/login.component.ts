@@ -40,24 +40,26 @@ export class LoginComponent implements OnInit {
       };
       this.dataserv.loginUser(this.user).subscribe({
         next: (res) => {
+          console.log('Respuesta de la API:', res);  // Verifica toda la respuesta de la API
           this.data = res;
           if (this.data.status === 1) {
-            // Almacena el token y la información del usuario
+            console.log('Login exitoso');
+            console.log('Rol del usuario:', this.data.data.role);  // Verifica el rol aquí
             localStorage.setItem('user', this.data.data.token);
-            localStorage.setItem('first_name', this.data.data.first_name);
-            localStorage.setItem('last_name', this.data.data.last_name);
-            localStorage.setItem('email', this.data.data.email);
-
-            this.toastr.success('Login Successful');
-            this.router.navigate(['/add-ecolodge']); // Redirige a Ecolodge
+          
+            this.router.navigate(['/add-ecolodge']);
+            window.location.reload();
           } else {
+            console.log('Email o contraseña incorrectos');
             this.toastr.warning('Email or Password Incorrect!');
           }
         },
         error: (error) => {
-          this.toastr.error('An error occurred during login. Please try again later.');
-        },
+          console.error('Error en la API:', error);
+          this.toastr.error('Error en la autenticación. Inténtalo más tarde.');
+        }
       });
     }
   }
+  
 }

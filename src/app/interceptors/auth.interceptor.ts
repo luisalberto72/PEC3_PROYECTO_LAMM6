@@ -4,7 +4,6 @@ import { Observable, switchMap, throwError } from 'rxjs';
 import { EcolodgeService } from '../services/ecolodge.service'; // Asegúrate de importar tu servicio de autenticación
 import { catchError } from 'rxjs/operators';
 
-
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
   constructor(private authService: EcolodgeService) {}
@@ -12,6 +11,12 @@ export class AuthInterceptor implements HttpInterceptor {
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     let token = localStorage.getItem('token');
 
+    // Excluir rutas de registro y login
+    if (req.url.includes('/register') || req.url.includes('/login')) {
+      return next.handle(req);
+    }
+
+    // Si el token ha expirado, refrescar el token
     if (token && this.authService.isTokenExpired(token)) {
       return this.authService.refreshToken().pipe(
         switchMap((newToken: any) => {
