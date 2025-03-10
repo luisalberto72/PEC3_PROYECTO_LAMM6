@@ -15,7 +15,7 @@ class CreateEcolodgesTable extends Migration
             $table->text('descripcion');
             $table->string('ubicacion');
             $table->decimal('precio', 10, 2);
-            $table->boolean('disponible')->default(false);
+            $table->boolean('energia_renovable')->default(false);
             $table->boolean('paneles_solares')->default(false);
             $table->unsignedBigInteger('propietario_id');
             $table->foreign('propietario_id')->references('id')->on('users');

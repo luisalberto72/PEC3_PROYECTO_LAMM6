@@ -77,16 +77,10 @@ isTokenExpired(token: string): boolean {
     return this.http.get(this.apiUrl, { headers: this.getAuthHeaders() });
   }
 
-  // Método para obtener un ecolodge por su ID
-  getEcolodgeById(id: number): Observable<any> {
-    return this.http.get(`${this.apiUrl}/${id}`, { headers: this.getAuthHeaders() })
-      .pipe(
-        catchError((error) => {
-          console.error("Error al obtener el ecolodge por ID:", error);
-          return throwError(() => new Error(error));
-        })
-      );
-  }
+ // Método para obtener un ecolodge por su ID
+ getEcolodgeById(id: number): Observable<any> {
+  return this.http.get<any>(`${this.apiUrl}/${id}`);
+}
 
   // Método para guardar un ecolodge
   saveEcolodge(data: any): Observable<any> {
@@ -113,7 +107,7 @@ isTokenExpired(token: string): boolean {
    
   // Convertimos los valores booleanos a tinyint (0 o 1)
   data.paneles_solares = data.paneles_solares ? 1 : 0; // Si es true, guardamos 1, si es false, guardamos 0
-  data.disponible = data.disponible ? 1 : 0; // Lo mismo para el campo 'disponible'
+  data.energia_renovable = data.energia_renovable ? 1 : 0; // Lo mismo para el campo 'energia_renovable' 
 
   // Aseguramos que propietario_id sea un número (bigint)
   data.propietario_id = Number(propietarioId); 
@@ -128,13 +122,13 @@ isTokenExpired(token: string): boolean {
       );
   }
 
-  filtrarEcolodges(solar: boolean | null, available: boolean | null, propietarioId: number | null): Observable<any[]> {
+  filtrarEcolodges(solar: boolean | null, energia: boolean | null, propietarioId: number | null): Observable<any[]> {
     let queryParams: string[] = [];
     if (solar !== null) {
       queryParams.push(`paneles_solares=${solar ? 1 : 0}`);
     }
-    if (available !== null) {
-      queryParams.push(`disponible=${available ? 1 : 0}`);
+    if (energia !== null) {
+      queryParams.push(`energia_renovable=${energia ? 1 : 0}`);
     }
     if (propietarioId !== null) {
       queryParams.push(`propietario_id=${propietarioId}`);
@@ -149,9 +143,13 @@ isTokenExpired(token: string): boolean {
 }
 
   updateEcolodge(id: number, data: any): Observable<any> {
-    return this.http.put(`${this.api}/ecolodges/${id}`, data);
-  }
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${localStorage.getItem('user')}`,
+      'Content-Type': 'application/json'
+    });
 
+    return this.http.put(`${this.api}/ecolodges/${id}`, data, { headers });
+  }
   deleteEcolodge(id: number): Observable<any> {
     return this.http.delete(`${this.api}/ecolodges/${id}`, {
       headers: this.getAuthHeaders()

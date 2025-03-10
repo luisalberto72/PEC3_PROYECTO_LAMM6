@@ -7,21 +7,21 @@ import { Router } from '@angular/router';
   templateUrl: './ecolodge-list.component.html'
 })
 export class EcolodgeListComponent implements OnInit {
-  ecolodges: any[] = [];
+  ecolodges: any[] = [];  // Lista de ecolodges filtrados
   solarFilter: boolean | null = null;
-  availableFilter: boolean | null = null;
+  energiaFilter: boolean | null = null;
   propietarioId: number | null = null;  // Declaramos la propiedad propietarioId
   
   constructor(private ecolodgeService: EcolodgeService, private router: Router) {}
 
   ngOnInit() {
-    this.filtrar();
+    this.filtrar();  // Llama a filtrar al cargar el componente
   }
 
   filtrar() {
-    this.ecolodgeService.filtrarEcolodges(this.solarFilter, this.availableFilter, this.propietarioId).subscribe(
+    this.ecolodgeService.filtrarEcolodges(this.solarFilter, this.energiaFilter, this.propietarioId).subscribe(
       (data) => {
-        this.ecolodges = data;
+        this.ecolodges = data;  // Asigna los ecolodges filtrados a la propiedad 'ecolodges'
       },
       (error) => {
         console.error('Error al filtrar ecolodges', error);
@@ -29,8 +29,6 @@ export class EcolodgeListComponent implements OnInit {
     );
   }
   
-
-  // Redirige al formulario de edición (asegúrate de tener la ruta configurada)
   editEcolodge(id: number) {
     this.router.navigate(['/editar-ecolodge', id]);
   }
@@ -40,7 +38,7 @@ export class EcolodgeListComponent implements OnInit {
       this.ecolodgeService.deleteEcolodge(id).subscribe(
         () => {
           alert('Ecolodge eliminado');
-          this.filtrar(); // Recargar la lista tras la eliminación
+          this.filtrar();  // Recargar la lista tras la eliminación
         },
         (error) => {
           console.error('Error al eliminar el ecolodge', error);

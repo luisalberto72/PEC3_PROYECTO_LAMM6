@@ -1,39 +1,35 @@
-<div class="edit-ecolodge-container">
-    <h2>Editar Ecolodge</h2>
-    <form [formGroup]="ecolodgeForm?.value" (ngSubmit)="onSubmit()">
-      <div>
-        <label for="name">Nombre</label>
-        <input id="name" formControlName="name" type="text" />
-      </div>
-  
-      <div>
-        <label for="location">Ubicación</label>
-        <input id="location" formControlName="location" type="text" />
-      </div>
-  
-      <div>
-        <label for="description">Descripción</label>
-        <textarea id="description" formControlName="description"></textarea>
-      </div>
-  
-      <div>
-        <label for="price_per_night">Precio por noche</label>
-        <input id="price_per_night" formControlName="price_per_night" type="number" />
-      </div>
-  
-      <div>
-        <label for="has_solar_panels">¿Tiene paneles solares?</label>
-        <input id="has_solar_panels" formControlName="has_solar_panels" type="checkbox" />
-      </div>
-  
-      <div>
-        <label for="is_available">¿Está disponible?</label>
-        <input id="is_available" formControlName="is_available" type="checkbox" />
-      </div>
-  
-      <div>
-        <button type="submit" [disabled]="!ecolodgeForm?.valid">Actualizar</button>
-      </div>
-    </form>
+<form [formGroup]="ecolodgeForm" (ngSubmit)="onSubmit()" class="container mt-4">
+  <div class="mb-3">
+    <label for="nombre" class="form-label">Nombre</label>
+    <input id="nombre" formControlName="nombre" type="text" class="form-control" />
   </div>
-  
+
+  <div class="mb-3">
+    <label for="ubicacion" class="form-label">Ubicación</label>
+    <input id="ubicacion" formControlName="ubicacion" type="text" class="form-control" />
+  </div>
+
+  <div class="mb-3">
+    <label for="descripcion" class="form-label">Descripción</label>
+    <textarea id="descripcion" formControlName="descripcion" class="form-control"></textarea>
+  </div>
+
+  <div class="mb-3">
+    <label for="precio" class="form-label">Precio por noche</label>
+    <input id="precio" formControlName="precio" type="number" class="form-control" />
+  </div>
+
+  <div class="mb-3 form-check">
+    <input id="paneles_solares" formControlName="paneles_solares" type="checkbox" class="form-check-input" />
+    <label for="paneles_solares" class="form-check-label">¿Tiene paneles solares?</label>
+  </div>
+
+  <div class="mb-3 form-check">
+    <input id="energia_renovable" formControlName="energia_renovable" type="checkbox" class="form-check-input" />
+    <label for="energia_renovable" class="form-check-label">¿Tiene energia renovable?</label>
+  </div>
+
+  <div class="mb-3">
+    <button type="submit" class="btn btn-primary" [disabled]="!ecolodgeForm.valid">Actualizar</button>
+  </div>
+</form>

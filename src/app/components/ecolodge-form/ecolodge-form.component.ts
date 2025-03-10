@@ -24,7 +24,7 @@ export class EcolodgeFormComponent implements OnInit {
       descripcion: ['', [Validators.required]],
       ubicacion: ['', [Validators.required]],
       precio: [0, [Validators.required, Validators.min(1)]],
-      disponible: [false],
+      energia_renovable: [false],
       paneles_solares: [false]
     });
     
@@ -32,20 +32,23 @@ export class EcolodgeFormComponent implements OnInit {
   }
 
   saveEcolodge() {
-
-
-    // Obtener el ID del usuario autenticado (esto puede depender de cómo gestionas la autenticación)
+    // Obtener el ID del usuario autenticado
     const propietarioId = this.ecolodgeService.getUserId(); // Asegúrate de tener un servicio que te dé el ID del usuario autenticado
+    console.log("propietarioId Data:", propietarioId);
   
-    console.log("propietarioId Data:", propietarioId );
-    // Agregar el propietario_id al objeto del formulario
+    
+    
+    // Agregar los valores transformados al objeto del formulario
     const ecolodgeData = {
       ...this.ecolodgeForm.value,
-      propietario_id: Number(propietarioId)
+    energia_renovable: this.ecolodgeForm.value.energia_renovable ? 1 : 0,  // Convertir true/false a 1/0
+    paneles_solares: this.ecolodgeForm.value.paneles_solares ? 1 : 0,      // Convertir true/false a 1/0
+    propietario_id: Number(propietarioId)
     };
   
     console.log("Ecolodge Data:", ecolodgeData);
   
+    // Enviar los datos si el formulario es válido
     if (this.ecolodgeForm.valid) {
       this.ecolodgeService.saveEcolodge(ecolodgeData).subscribe({
         next: (_response) => {

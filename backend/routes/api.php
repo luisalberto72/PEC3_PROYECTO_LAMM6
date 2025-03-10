@@ -59,3 +59,4 @@ Route::middleware('auth:api')->delete('ecolodges/{id}', [EcolodgeController::cla
 // Filtro avanzado
 Route::middleware('auth:api')->get('/ecolodges-filtrar', [EcolodgeController::class, 'filtrarEcolodges']);
 
+Route::get('ecolodges/{id}', [EcolodgeController::class, 'show']);
