@@ -9,11 +9,10 @@ class ImagenEcolodge extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'ecolodge_id', 'ruta_imagen',
-    ];
+    protected $table = 'imagenes_ecolodges'; // Asegurar que Laravel la reconozca
 
-    // Relación con el ecolodge
+    protected $fillable = ['ecolodge_id', 'ruta_imagen'];
+
     public function ecolodge()
     {
         return $this->belongsTo(Ecolodge::class);

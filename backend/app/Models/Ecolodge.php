@@ -10,8 +10,7 @@ class Ecolodge extends Model
     use HasFactory;
 
     protected $fillable = [
-        'nombre', 'descripcion', 'ubicacion', 'precio', 'paneles_solares', 'energia_renovable', 'propietario_id',
-    ];
+        'nombre', 'descripcion', 'ubicacion', 'precio', 'paneles_solares', 'energia_renovable', 'propietario_id'];
 
     // Relación con ImagenEcolodge (uno a muchos)
     public function imagenes()

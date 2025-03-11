@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, Observable, tap, throwError } from 'rxjs';
 import jwt_decode from 'jwt-decode';  // Importamos la librería para decodificar el JWT
-import { DataService } from 'app/dataservice.service';
 
 
 @Injectable({
@@ -13,7 +12,7 @@ export class EcolodgeService {
   private api='http://127.0.0.1:8000/api';
  
 
-  constructor(private http: HttpClient,private dataService: DataService) {}
+  constructor(private http: HttpClient) {}
 
 
 
@@ -82,45 +81,64 @@ isTokenExpired(token: string): boolean {
   return this.http.get<any>(`${this.apiUrl}/${id}`);
 }
 
-  // Método para guardar un ecolodge
-  saveEcolodge(data: any): Observable<any> {
-    console.log("Token almacenado:", localStorage.getItem('token'));
-    console.log("Usuario ID obtenido:", this.getUserId());
+ // Método para guardar un ecolodge
+saveEcolodge(data: FormData): Observable<any> {
+  // Obtener el token almacenado en localStorage
+  const token = localStorage.getItem('user');
+  console.log("Token almacenado:", token);
 
-    
-    const propietarioId = this.getUserId();
-    console.log("Propietario ID:", propietarioId);
+  // Obtener el ID del usuario (suponiendo que tienes un método para obtenerlo)
+  const propietarioId = this.getUserId();
+  console.log("Propietario ID:", propietarioId);
 
-  const userRole = localStorage.getItem('role'); // Asumiendo que el rol está guardado en el localStorage
-  console.log("userRole",userRole);
-  // Verificamos que el usuario tenga el rol de propietario
-  if (userRole !== 'owner' && userRole !== 'both' ) {
+  // Obtener el rol del usuario almacenado en localStorage
+  const userRole = localStorage.getItem('role');
+  console.log("Rol de usuario:", userRole);
+
+  // Verificar si el usuario tiene el rol adecuado (solo 'owner' o 'both' pueden agregar un ecolodge)
+  if (userRole !== 'owner' && userRole !== 'both') {
     console.error('Solo los propietarios pueden guardar un ecolodge.');
     return throwError(() => new Error('Acción no permitida: solo los propietarios pueden agregar un ecolodge.'));
   }
 
-    if (!propietarioId) {
-      console.error('Usuario no autenticado, no se puede guardar el ecolodge.');
-      return throwError(() => new Error('Usuario no autenticado'));
-    }
-  
-   
-  // Convertimos los valores booleanos a tinyint (0 o 1)
-  data.paneles_solares = data.paneles_solares ? 1 : 0; // Si es true, guardamos 1, si es false, guardamos 0
-  data.energia_renovable = data.energia_renovable ? 1 : 0; // Lo mismo para el campo 'energia_renovable' 
-
-  // Aseguramos que propietario_id sea un número (bigint)
-  data.propietario_id = Number(propietarioId); 
-  console.log("Datos que se envían:", data);
-  
-    return this.http.post(this.apiUrl, data, { headers: this.getAuthHeaders() })
-      .pipe(
-        catchError((error) => {
-          console.error("Error al guardar el ecolodge:", error);
-          return throwError(() => new Error(error)); // Use throwError with new signature
-        })
-      );
+  // Verificar si el propietario ID está disponible (asegúrate de que este método esté retornando el valor correcto)
+  if (!propietarioId) {
+    console.error('Usuario no autenticado, no se puede guardar el ecolodge.');
+    return throwError(() => new Error('Usuario no autenticado'));
   }
+
+  // Verificar si el token está presente (también puedes realizar una validación en el servidor, si es necesario)
+  if (!token) {
+    console.error('Token no encontrado en localStorage');
+    return throwError(() => new Error('Usuario no autenticado'));
+  }
+
+  // Si todo está correcto, mostramos los datos que se enviarán al servidor
+  console.log("Datos que se envían:", data);
+
+  // Crear los encabezados de la solicitud con el token de autorización
+  const headers = new HttpHeaders({
+    'Authorization': `Bearer ${token}`,
+    // No es necesario especificar 'Content-Type' para FormData, Angular lo maneja automáticamente
+  });
+
+  // Realizar la solicitud POST al servidor y devolver el observable para manejar la respuesta
+  return this.http.post('http://127.0.0.1:8000/api/ecolodges', data, {
+    headers: headers,
+    withCredentials: true, // Asegúrate de incluir esta opción si usas cookies
+  }).pipe(
+    tap(response => {
+      // Aquí puedes hacer algo con la respuesta, como mostrar un mensaje
+      console.log('Ecolodge guardado con éxito:', response);
+    }),
+    catchError(error => {
+      // Maneja el error de forma adecuada
+      console.error('Error al guardar el ecolodge:', error);
+      return throwError(() => new Error('Error al guardar el ecolodge.'));
+    })
+  );
+}
+
 
   filtrarEcolodges(solar: boolean | null, energia: boolean | null, propietarioId: number | null): Observable<any[]> {
     let queryParams: string[] = [];
@@ -150,6 +168,7 @@ isTokenExpired(token: string): boolean {
 
     return this.http.put(`${this.api}/ecolodges/${id}`, data, { headers });
   }
+
   deleteEcolodge(id: number): Observable<any> {
     return this.http.delete(`${this.api}/ecolodges/${id}`, {
       headers: this.getAuthHeaders()

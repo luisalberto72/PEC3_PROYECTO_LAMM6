@@ -35,7 +35,7 @@ export class EditEcolodgeComponent implements OnInit {
     this.ecolodgeId = id ? +id : undefined;
 
     if (this.ecolodgeId === undefined) {
-      this.router.navigate(['/ecolodges']);
+      this.router.navigate(['/add-ecolodge']);
       return;
     }
 
@@ -61,7 +61,7 @@ export class EditEcolodgeComponent implements OnInit {
         },
         (error) => {
           console.error('Error al obtener el ecolodge', error);
-          this.router.navigate(['/ecolodges']);
+          this.router.navigate(['/add-ecolodge']);
         }
       );
     }

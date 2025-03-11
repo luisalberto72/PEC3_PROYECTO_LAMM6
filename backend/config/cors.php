@@ -16,19 +16,11 @@ return [
     */
 
     'paths' => ['api/*', 'storage/*'],
-
     'allowed_methods' => ['*'],
-
-   'allowed_origins' => ['http://localhost:4200'],
-
-    'allowed_origins_patterns' => [],
-
+    'allowed_origins' => ['http://localhost:4200'],  // La URL de tu frontend Angular
     'allowed_headers' => ['*'],
-
     'exposed_headers' => [],
-
     'max_age' => 0,
-
-   'supports_credentials' => true,
+    'supports_credentials' => true,
 
 ];

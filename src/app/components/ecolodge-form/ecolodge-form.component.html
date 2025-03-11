@@ -1,38 +1,60 @@
-<section id="AddEcolodge">
-  <div class="container">
-    <div class="row justify-content-center align-items-center">
-      <div class="col-md-8">
-        <div class="card shadow-lg p-4">
-          <h2 class="text-center mb-4">Agregar Ecolodge</h2>
-          <form [formGroup]="ecolodgeForm" (ngSubmit)="saveEcolodge()">
-            <div class="mb-3">
-              <label for="nombre" class="form-label">Nombre</label>
-              <input type="text" id="nombre" class="form-control" formControlName="nombre" placeholder="Nombre" required>
-            </div>
-            <div class="mb-3">
-              <label for="descripcion" class="form-label">Descripción</label>
-              <textarea id="descripcion" class="form-control" formControlName="descripcion" placeholder="Descripción" required></textarea>
-            </div>
-            <div class="mb-3">
-              <label for="ubicacion" class="form-label">Ubicación</label>
-              <input type="text" id="ubicacion" class="form-control" formControlName="ubicacion" placeholder="Ubicación" required>
-            </div>
-            <div class="mb-3">
-              <label for="precio" class="form-label">Precio</label>
-              <input type="number" id="precio" class="form-control" formControlName="precio" placeholder="Precio" required>
-            </div>
-            <div class="mb-3 form-check">
-              <input type="checkbox" id="energia_renovable" class="form-check-input" formControlName="energia_renovable">
-              <label for="energia_renovable" class="form-check-label">Energia</label>
-            </div>
-            <div class="mb-3 form-check">
-              <input type="checkbox" id="paneles_solares" class="form-check-input" formControlName="paneles_solares">
-              <label for="paneles_solares" class="form-check-label">Paneles Solares</label>
-            </div>
-            <button type="submit" class="btn btn-primary w-100" [disabled]="ecolodgeForm.invalid">Agregar Casa</button>
-          </form>
-        </div>
-      </div>
+<form [formGroup]="ecolodgeForm" (ngSubmit)="saveEcolodge()" class="container mt-4">
+  <h2 class="mb-4">Agregar una Casa Ecológica</h2>
+
+  <!-- Nombre -->
+  <div class="form-group">
+    <label for="nombre">Nombre</label>
+    <input id="nombre" formControlName="nombre" class="form-control" required>
+    <div *ngIf="ecolodgeForm.get('nombre')?.invalid && ecolodgeForm.get('nombre')?.touched" class="invalid-feedback">
+      El nombre es obligatorio.
     </div>
   </div>
-</section>
+
+  <!-- Descripción -->
+  <div class="form-group">
+    <label for="descripcion">Descripción</label>
+    <textarea id="descripcion" formControlName="descripcion" class="form-control" rows="4" required></textarea>
+    <div *ngIf="ecolodgeForm.get('descripcion')?.invalid && ecolodgeForm.get('descripcion')?.touched" class="invalid-feedback">
+      La descripción es obligatoria.
+    </div>
+  </div>
+
+  <!-- Ubicación -->
+  <div class="form-group">
+    <label for="ubicacion">Ubicación</label>
+    <input id="ubicacion" formControlName="ubicacion" class="form-control" required>
+    <div *ngIf="ecolodgeForm.get('ubicacion')?.invalid && ecolodgeForm.get('ubicacion')?.touched" class="invalid-feedback">
+      La ubicación es obligatoria.
+    </div>
+  </div>
+
+  <!-- Precio -->
+  <div class="form-group">
+    <label for="precio">Precio</label>
+    <input id="precio" type="number" formControlName="precio" class="form-control" required>
+    <div *ngIf="ecolodgeForm.get('precio')?.invalid && ecolodgeForm.get('precio')?.touched" class="invalid-feedback">
+      El precio es obligatorio.
+    </div>
+  </div>
+
+  <!-- Energía renovable -->
+  <div class="form-group form-check">
+    <input id="energia_renovable" type="checkbox" formControlName="energia_renovable" class="form-check-input">
+    <label for="energia_renovable" class="form-check-label">Energía renovable</label>
+  </div>
+
+  <!-- Paneles solares -->
+  <div class="form-group form-check">
+    <input id="paneles_solares" type="checkbox" formControlName="paneles_solares" class="form-check-input">
+    <label for="paneles_solares" class="form-check-label">Paneles solares</label>
+  </div>
+
+  <!-- Imágenes -->
+  <div class="form-group">
+    <label for="imagenes">Imágenes:</label>
+    <input id="imagenes" type="file" (change)="onImageSelected($event)" multiple class="form-control-file">
+  </div>
+
+  <!-- Botón de guardar -->
+  <button type="submit" [disabled]="ecolodgeForm.invalid" class="btn btn-primary btn-block mt-3">Agregar Casa</button>
+</form>

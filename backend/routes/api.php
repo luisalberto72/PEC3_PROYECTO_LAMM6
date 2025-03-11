@@ -60,3 +60,6 @@ Route::middleware('auth:api')->delete('ecolodges/{id}', [EcolodgeController::cla
 Route::middleware('auth:api')->get('/ecolodges-filtrar', [EcolodgeController::class, 'filtrarEcolodges']);
 
 Route::get('ecolodges/{id}', [EcolodgeController::class, 'show']);
+
+Route::middleware('auth:api')->post('/ecolodges', [EcolodgeController::class, 'store']); // Crear ecolodge
+Route::middleware('auth:api')->put('/ecolodges/{id}', [EcolodgeController::class, 'update']); // Actualizar ecolodge
