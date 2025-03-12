@@ -63,3 +63,6 @@ Route::get('ecolodges/{id}', [EcolodgeController::class, 'show']);
 
 Route::middleware('auth:api')->post('/ecolodges', [EcolodgeController::class, 'store']); // Crear ecolodge
 Route::middleware('auth:api')->put('/ecolodges/{id}', [EcolodgeController::class, 'update']); // Actualizar ecolodge
+
+
+Route::post('/ecolodges/{id}/image', [EcolodgeController::class, 'uploadImage']);

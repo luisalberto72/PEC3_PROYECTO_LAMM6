@@ -19,14 +19,17 @@
     <input id="precio" formControlName="precio" type="number" class="form-control" />
   </div>
 
-  <div class="mb-3 form-check">
-    <input id="paneles_solares" formControlName="paneles_solares" type="checkbox" class="form-check-input" />
-    <label for="paneles_solares" class="form-check-label">¿Tiene paneles solares?</label>
+  <div class="mb-3">
+    <label for="imagenes" class="form-label">Subir Imágenes</label>
+    <input type="file" id="imagenes" (change)="onImageSelected($event)" class="form-control" multiple />
   </div>
 
-  <div class="mb-3 form-check">
-    <input id="energia_renovable" formControlName="energia_renovable" type="checkbox" class="form-check-input" />
-    <label for="energia_renovable" class="form-check-label">¿Tiene energia renovable?</label>
+  <!-- Mostrar imágenes asociadas al ecolodge -->
+  <div *ngIf="images.length > 0">
+    <div *ngFor="let image of images">
+      <!-- Ver lo que llega a la variable image -->
+      <img [src]="'http://localhost:8000/storage/'+ image.ruta_imagen" alt="Imagen" class="img-thumbnail" />
+    </div>
   </div>
 
   <div class="mb-3">

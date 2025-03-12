@@ -26,56 +26,31 @@ class EcolodgeController extends Controller
     }
     public function store(Request $request)
     {
-        // Obtener el usuario autenticado
+        // Obtén el usuario autenticado
         $user = auth()->user();
-    
-        if (!$user) {
-            return response()->json(['error' => 'Usuario no autenticado'], 401);
+        // Verifica si el usuario tiene el rol 'traveler'
+        if ($user->role == 'traveler') {
+            return response()->json(['error' => 'Acción no permitida: solo los propietarios o both pueden agregar un ecolodge.'], 403);
         }
-    
-        // Validación de los datos
+
         $validatedData = $request->validate([
             'nombre' => 'required|unique:ecolodges',
             'descripcion' => 'required',
             'ubicacion' => 'required',
             'precio' => 'required|numeric',
-            'energia_renovable' => 'required|boolean',
-            'paneles_solares' => 'required|boolean',
-            'imagenes' => 'required|array', // Asegurar que imágenes es un arreglo
-            'imagenes.*' => 'image|mimes:jpeg,png,jpg,gif,svg', // Validación de tipo de archivo
+            'disponible' => 'boolean',
+            'paneles_solares' => 'boolean',
+            'energia_renovable' => 'boolean', // Asegúrate de validar este campo también si es necesario
         ]);
+      
+        $validatedData['propietario_id'] = $user->id; // Tomamos el ID del usuario autenticado
     
-        // Crear el Ecolodge con el propietario autenticado
-        $ecolodge = Ecolodge::create([
-            'nombre' => $validatedData['nombre'],
-            'descripcion' => $validatedData['descripcion'],
-            'ubicacion' => $validatedData['ubicacion'],
-            'precio' => $validatedData['precio'],
-            'energia_renovable' => $validatedData['energia_renovable'],
-            'paneles_solares' => $validatedData['paneles_solares'],
-            'propietario_id' => $user->id, // Usamos el ID del usuario autenticado
-        ]);
-    
-        // Subir las imágenes
-        if ($request->hasFile('imagenes')) {
-            foreach ($request->file('imagenes') as $imagen) {
-                if ($imagen->isValid()) {
-                    $path = $imagen->store('public/Houses/image');
-    
-                    // Guardar la ruta en la tabla de imágenes relacionadas
-                    $ecolodge->imagenes()->create([
-                        'ruta_imagen' => $path,
-                    ]);
-                }
-            }
-        } else {
-            return response()->json(['error' => 'Se requieren imágenes'], 400);
-        }
+        $ecolodge = Ecolodge::create($validatedData);
     
         return response()->json($ecolodge, 201);
     }
     
-
+    
     public function update(Request $request, $id)
     {
         // Verificar que el usuario tenga rol owner o both
@@ -91,34 +66,27 @@ class EcolodgeController extends Controller
         if (!$ecolodge) {
             return response()->json(['error' => 'Ecolodge no encontrado o no autorizado'], 404);
         }
-
+    
         // Validar la información
-        $validatedData = $request->validate([
+        $request->validate([
             'nombre' => 'required|string|max:255',
             'ubicacion' => 'required|string|max:255',
             'descripcion' => 'nullable|string',
             'precio' => 'nullable|numeric|min:0',
             'paneles_solares' => 'boolean',
             'energia_renovable' => 'boolean',
-            'imagenes' => 'array', // Para las imágenes
-            'imagenes.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048', // Validación de imagen
         ]);
     
         // Actualizar campos
-        $ecolodge->update($validatedData);
+        $ecolodge->update([
+            'nombre' => $request->nombre,
+            'ubicacion' => $request->ubicacion,
+            'descripcion' => $request->descripcion,
+            'precio' => $request->precio,
+            'paneles_solares' => $request->paneles_solares,
+            'energia_renovable' => $request->energia_renovable,
+        ]);
     
-        // Subir nuevas imágenes si es necesario
-        if ($request->has('imagenes')) {
-            foreach ($request->imagenes as $image) {
-                $path = $image->store('ecolodge_images', 'public');
-                // Relacionar la nueva imagen con el ecolodge
-                ImagenEcolodge::create([
-                    'ecolodge_id' => $ecolodge->id,
-                    'ruta_imagen' => $path,
-                ]);
-            }
-        }
-
         return response()->json(['message' => 'Ecolodge actualizado', 'ecolodge' => $ecolodge]);
     }
     
@@ -183,4 +151,87 @@ class EcolodgeController extends Controller
         $ecolodge->imagenes;
         return response()->json($ecolodge);
     }
+
+
+   
+public function getEcolodgeById($id)
+{
+    $ecolodge = Ecolodge::with('imagenes')->find($id);
+
+    if ($ecolodge) {
+        return response()->json($ecolodge);
+    } else {
+        return response()->json(['error' => 'Ecolodge no encontrado'], 404);
+    }
+}
+
+
+public function storeImage(Request $request, $ecolodgeId)
+{
+    // Validar la imagen recibida
+    $request->validate([
+        'image' => 'required|image|mimes:jpg,jpeg,png|max:2048', // Puedes ajustar las validaciones
+    ]);
+
+    // Obtener el ecolodge por su ID
+    $ecolodge = Ecolodge::findOrFail($ecolodgeId);
+
+    // Verificar si la imagen fue subida
+    if ($request->hasFile('image')) {
+        // Guardar la imagen en la carpeta 'public/Houses/image'
+        $imagePath = $request->file('image')->store('public/Houses/image');
+        
+        // Guardar la ruta de la imagen en la base de datos (quitar el prefijo 'public/')
+        $ecolodge->imagenes = basename($imagePath);  // Solo almacenamos el nombre del archivo
+
+        // Guardar el Ecolodge con la nueva imagen
+        $ecolodge->save();
+        
+        return response()->json(['message' => 'Imagen subida exitosamente', 'imagen' => $imagePath], 200);
+    }
+
+    return response()->json(['message' => 'No se encontró ninguna imagen para subir'], 400);
+}
+
+public function uploadImage($id, Request $request)
+{
+    // Validación de las imágenes
+    $request->validate([
+        'images' => 'required|array',
+        'images.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048', // Validación de tipos y tamaño de archivo
+    ]);
+
+    // Buscar el Ecolodge por ID
+    $ecolodge = Ecolodge::find($id);
+    if (!$ecolodge) {
+        return response()->json(['error' => 'Ecolodge no encontrado'], 404);
+    }
+
+    // Arreglo para almacenar las rutas de las imágenes
+    $imagePaths = [];
+
+    // Subir las imágenes
+    if ($request->hasFile('images')) {
+        foreach ($request->file('images') as $image) {
+            // Almacenar la imagen en el almacenamiento público
+            $path = $image->store('public/Houses/image');  // Almacena en 'storage/app/public/Houses/image'
+
+            // Obtener la ruta relativa
+            $imagePath = str_replace('public/', '', $path);  // Eliminar 'public/' de la ruta
+
+            // Crear una nueva entrada en la tabla 'imagenes_ecolodges'
+            $ecolodge->imagenes()->create([
+                'ruta_imagen' => $imagePath,
+            ]);
+
+            // Añadir la ruta al arreglo de respuestas
+            $imagePaths[] = $imagePath;
+        }
+    }
+
+    // Retornar las rutas de las imágenes
+    return response()->json(['images' => $imagePaths], 200);
+}
+
+
 }

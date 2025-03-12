@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EcolodgeService } from '../services/ecolodge.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-edit-ecolodge',
@@ -11,15 +12,17 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class EditEcolodgeComponent implements OnInit {
   ecolodgeId: number | undefined;
   ecolodgeForm: FormGroup = this.fb.group({
-    nombre: ['', [Validators.required]],  // Cambiar 'name' por 'nombre'
-    ubicacion: ['', [Validators.required]],  // Cambiar 'location' por 'ubicacion'
+    nombre: ['', [Validators.required]],
+    ubicacion: ['', [Validators.required]],
     descripcion: [''],
     precio: ['', [Validators.required, Validators.min(0)]],
     paneles_solares: [false],
-    energia_renovable: [false]
+    energia_renovable: [false],
+    imagenes: [[]]  // Asegurarse de que este campo sea obligatorio
   });
 
   ecolodge: any;
+  images: any[] = [];  // Array para almacenar las imágenes subidas
   errorMessage: string | undefined;
   isSubmitting: boolean | undefined;
 
@@ -27,10 +30,12 @@ export class EditEcolodgeComponent implements OnInit {
     private route: ActivatedRoute,
     private ecolodgeService: EcolodgeService,
     private router: Router,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private http: HttpClient
   ) { }
 
   ngOnInit(): void {
+ 
     const id = this.route.snapshot.paramMap.get('id');
     this.ecolodgeId = id ? +id : undefined;
 
@@ -61,10 +66,37 @@ export class EditEcolodgeComponent implements OnInit {
         },
         (error) => {
           console.error('Error al obtener el ecolodge', error);
-          this.router.navigate(['/add-ecolodge']);
+          this.router.navigate(['/ecolodges']);
         }
       );
     }
+  }
+
+  onImageSelected(event: any) {
+    if (!this.ecolodgeId) {
+      console.error('No se encontró el ID del ecolodge');
+      return;
+    }
+  
+    const files = event.target.files;
+    const formData = new FormData();
+  
+    // Añadir cada archivo a FormData
+    for (let i = 0; i < files.length; i++) {
+      formData.append('images[]', files[i]);  // Usamos 'images[]' para múltiples imágenes
+    }
+  
+    // Subir las imágenes al backend con el ID dinámico
+    this.http.post(`http://localhost:8000/api/ecolodges/${this.ecolodgeId}/image`, formData).subscribe(
+      (response: any) => {
+        console.log('Imágenes subidas:', response);
+        this.images = response.images;
+        this.ecolodgeForm.patchValue({ imagenes: this.images });
+      },
+      (error: any) => {
+        console.error('Error al subir las imágenes:', error);
+      }
+    );
   }
 
   onSubmit() {
