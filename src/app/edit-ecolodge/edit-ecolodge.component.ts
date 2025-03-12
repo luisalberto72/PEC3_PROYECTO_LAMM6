@@ -18,7 +18,7 @@ export class EditEcolodgeComponent implements OnInit {
     precio: ['', [Validators.required, Validators.min(0)]],
     paneles_solares: [false],
     energia_renovable: [false],
-    imagenes: [[]]  // Asegurarse de que este campo sea obligatorio
+    imagenes: [[], [Validators.required]]  // Asegurarse de que este campo sea obligatorio
   });
 
   ecolodge: any;
@@ -53,20 +53,26 @@ export class EditEcolodgeComponent implements OnInit {
         (data) => {
           this.ecolodge = data;
           if (this.ecolodge) {
-            // Ajusta los nombres de los campos en el formulario a los del backend
+            // Ajustar los campos del formulario
             this.ecolodgeForm.patchValue({
-              nombre: this.ecolodge.nombre,  // Cambiar 'name' por 'nombre'
-              ubicacion: this.ecolodge.ubicacion,  // Cambiar 'location' por 'ubicacion'
+              nombre: this.ecolodge.nombre,
+              ubicacion: this.ecolodge.ubicacion,
               descripcion: this.ecolodge.descripcion,
               precio: this.ecolodge.precio,
               paneles_solares: Boolean(this.ecolodge.paneles_solares),
               energia_renovable: Boolean(this.ecolodge.energia_renovable)
             });
+
+            // Cargar las imágenes asociadas
+            this.images = this.ecolodge.imagenes || [];  // Asegúrate de que las imágenes estén en el formato adecuado
+            this.ecolodgeForm.patchValue({
+              imagenes: this.images  // Actualizar campo de imágenes en el formulario
+            });
           }
         },
         (error) => {
           console.error('Error al obtener el ecolodge', error);
-          this.router.navigate(['/ecolodges']);
+          this.router.navigate(['/add-ecolodge']);
         }
       );
     }
