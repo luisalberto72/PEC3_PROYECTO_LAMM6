@@ -1,18 +1,23 @@
-.haftitle{
+/* Estilo para el logo */
+.haftitle {
   color: #081457;
 }
-.icon{
+
+/* Estilo para la imagen del logo */
+.icon {
   margin: 0px;
   padding: 0px;
   width: 200px;
   height: 200px;
 }
 
+/* Estilo para el header */
 header {
-  background-color:#00bf63/* Gris claro */
+  background-color: #00bf63; /* Fondo verde claro */
 }
 
-.log{
+/* Estilo para los botones de login */
+.log {
   color: white !important;
   border-radius: 5px;
   margin-left: 8px;
@@ -20,7 +25,9 @@ header {
   height: 40px;
   background-color: #132066 !important;
 }
-.log:hover{
+
+/* Hover para el botón de login */
+.log:hover {
   color: white !important;
   border-radius: 5px;
   margin-left: 8px;
@@ -28,33 +35,47 @@ header {
   height: 40px;
   background-color: #001dc4 !important;
   transform: translateY(-1px);
+}
 
-}
-.nav-link{
+/* Estilo de los enlaces del menú */
+.nav-link {
   font-weight: 500;
+  font-size: 12px; /* Reducir el tamaño de la letra */
+  white-space: nowrap; /* Asegura que el texto no se divida */
+  padding: 5px 10px; /* Ajuste del espaciado dentro del botón */
 }
-.profileimg{
+
+/* Estilo de la imagen de perfil */
+.profileimg {
   border-radius: 50%;
   width: 50px;
   height: 50px;
   padding: 0px;
   margin-left: 10px;
 }
-nav{
+
+/* Estilo de la barra de navegación */
+nav {
   margin-bottom: 5px;
 }
-@media only screen and (max-width: 768px){
-  .log{
-  color: rgb(255, 255, 255) !important;
-  border-radius: 5px;
-  margin-left: 0px;
-  margin-top: 5px;
-  text-align: center;
-  font-weight: bold;
-}
 
-.ss{
-  width: 100%;
-}
+/* Estilo para dispositivos móviles */
+@media only screen and (max-width: 768px) {
+  .log {
+    color: rgb(255, 255, 255) !important;
+    border-radius: 5px;
+    margin-left: 0px;
+    margin-top: 5px;
+    text-align: center;
+    font-weight: bold;
+  }
 
+  .ss {
+    width: 100%;
+  }
+
+  /* Reduce aún más el tamaño del texto en dispositivos pequeños */
+  .nav-link {
+    font-size: 12px; /* Tamaño de fuente más pequeño para que quepa mejor en botones pequeños */
+  }
 }

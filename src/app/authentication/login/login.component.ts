@@ -47,8 +47,8 @@ export class LoginComponent implements OnInit {
             console.log('Rol del usuario:', this.data.data.role);  // Verifica el rol aquí
             localStorage.setItem('user', this.data.data.token);
           
-            this.router.navigate(['/add-ecolodge']);
-            window.location.reload();
+            this.router.navigate(['']);
+           
           } else {
             console.log('Email o contraseña incorrectos');
             this.toastr.warning('Email or Password Incorrect!');

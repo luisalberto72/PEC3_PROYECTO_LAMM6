@@ -6,19 +6,18 @@ import { DataService } from '../../dataservice.service';
 import { AppComponent } from '../../app.component';
 
 @Component({
-  selector: 'app-landing-page',
-  templateUrl: './landing-page.component.html',
-  styleUrls: ['./landing-page.component.css']
+  selector: 'app-home-page',
+  templateUrl: './home-page.component.html',
+  styleUrls: ['./home-page.component.css']
 })
-export class LandingPageComponent {
+export class HomePageComponent {
   constructor(protected functionhome:AppComponent,protected dataserv:DataService,private toastr: ToastrService,protected router:Router) {
   }
 
   ngOnInit() {
     console.log('user initialized')
     this.functionhome.ngOnInit()
-    //this.functionhome.ngOnInit()
-    //console.log(this.test())
+  
   }
   
   
