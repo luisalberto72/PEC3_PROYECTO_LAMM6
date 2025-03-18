@@ -18,7 +18,12 @@ import { EcolodgeFormComponent } from './components/ecolodge-form/ecolodge-form.
 import { EcolodgeListComponent } from './components/ecolodge-list/ecolodge-list.component';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { DataService } from './dataservice.service';
-import { EditEcolodgeComponent } from './edit-ecolodge/edit-ecolodge.component';
+import { EditEcolodgeComponent } from './components/edit-ecolodge/edit-ecolodge.component';
+import { SearchEcolodgesComponent } from './components/search-ecolodges/search-ecolodges.component';
+import { ReservaComponent } from './components/reserva/reserva.component';
+
+
+
 
 @NgModule({
   declarations: [
@@ -29,7 +34,9 @@ import { EditEcolodgeComponent } from './edit-ecolodge/edit-ecolodge.component';
     ProfileComponent,
     EcolodgeFormComponent,
     EcolodgeListComponent,
-    EditEcolodgeComponent
+    EditEcolodgeComponent,
+    SearchEcolodgesComponent,
+    ReservaComponent
   ],
   imports: [
     BrowserModule,
@@ -42,6 +49,7 @@ import { EditEcolodgeComponent } from './edit-ecolodge/edit-ecolodge.component';
     SocialLoginModule
   ],
   providers: [
+   
     {
       provide: 'SocialAuthServiceConfig',
       useValue: {

@@ -11,19 +11,40 @@ use Illuminate\Support\Facades\Storage;
 class EcolodgeController extends Controller
 {
     public function index(Request $request)
-    {
-        $query = Ecolodge::query();
-
-        if ($request->has('paneles_solares')) {
-            $query->where('paneles_solares', $request->paneles_solares);
-        }
-
-        if ($request->has('ubicacion')) {
-            $query->where('ubicacion', 'LIKE', "%{$request->ubicacion}%");
-        }
-
-        return response()->json($query->get());
+{
+    // Verifica si el usuario está autenticado
+    if (!auth()->check()) {
+        return response()->json(['error' => 'No autorizado'], 403);
     }
+
+    // Obtener el usuario autenticado
+    $user = auth()->user();
+
+    // Permitir solo a "traveler" o "both" buscar ecolodges
+    if (!in_array($user->role, ['traveler', 'both'])) {
+        return response()->json(['error' => 'Acceso denegado'], 403);
+    }
+
+    // Consulta base sin filtros
+    $query = Ecolodge::query();
+
+    // Aplicar filtros si existen en la solicitud
+    if ($request->has('paneles_solares')) {
+        $query->where('paneles_solares', filter_var($request->paneles_solares, FILTER_VALIDATE_BOOLEAN));
+    }
+
+    if ($request->has('energia_renovable')) {
+        $query->where('energia_renovable', filter_var($request->energia_renovable, FILTER_VALIDATE_BOOLEAN));
+    }
+
+    // Ejecutar la consulta después de aplicar los filtros
+    $ecolodges = $query->get();
+
+    return response()->json($ecolodges);
+}
+
+    
+
     public function store(Request $request)
     {
         // Obtén el usuario autenticado
@@ -234,4 +255,45 @@ public function uploadImage($id, Request $request)
 }
 
 
+public function filterAll(Request $request)
+{
+    $panelesSolares = $request->get('paneles_solares', 0);
+    $energiaRenovable = $request->get('energia_renovable', 0);
+    $role = $request->get('role', null);
+
+    $query = Ecolodge::query();
+
+    if ($panelesSolares !== null) {
+        $query->where('paneles_solares', $panelesSolares);
+    }
+
+    if ($energiaRenovable !== null) {
+        $query->where('energia_renovable', $energiaRenovable);
+    }
+
+    if ($role) {
+        // Filtrar por el rol del propietario
+        $query->whereHas('propietario', function ($query) use ($role) {
+            $query->where('role', $role);
+        });
+    }
+
+    $ecolodges = $query->get();
+
+    return response()->json($ecolodges);
+}
+
+public function obtenerImagenes($ecolodgeId)
+    {
+        // Obtén todas las imágenes asociadas a un ecolodge
+        $imagenes = ImagenEcolodge::where('ecolodge_id', $ecolodgeId)->get();
+
+        // Si las imágenes están en el almacenamiento público
+        foreach ($imagenes as $imagen) {
+            // Asegúrate de que las rutas de las imágenes sean accesibles públicamente
+            $imagen->ruta_imagen = asset('storage/' . $imagen->ruta_imagen);  // Si usas almacenamiento en Laravel
+        }
+
+        return response()->json($imagenes);
+    }
 }

@@ -8,7 +8,7 @@ use App\Http\Controllers\UserController;
 
 use App\Http\Controllers\EcolodgeController;
 
-
+use App\Http\Controllers\ReservaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -66,3 +66,13 @@ Route::middleware('auth:api')->put('/ecolodges/{id}', [EcolodgeController::class
 
 
 Route::post('/ecolodges/{id}/image', [EcolodgeController::class, 'uploadImage']);
+
+Route::middleware('auth:api')->get('/ecolodges/filtrar-todos', [EcolodgeController::class, 'filterAll']);
+
+
+Route::get('/ecolodge/{id}/imagenes', [EcolodgeController::class, 'obtenerImagenes']);
+
+Route::post('/reservas/verificar-disponibilidad', [ReservaController::class, 'verificarDisponibilidad']);
+
+
+Route::post('/reservas/crear', [ReservaController::class, 'crearReserva']);

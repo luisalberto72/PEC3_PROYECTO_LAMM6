@@ -23,4 +23,7 @@ class Ecolodge extends Model
     {
         return $this->belongsTo(User::class, 'propietario_id');
     }
+
+    
+
 }

@@ -1,0 +1,58 @@
+<div class="container mt-4">
+    <h2 class="mb-4">Buscar Ecolodges</h2>
+
+    <!-- Filtros de búsqueda -->
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="solarCheckbox" #solarCheckbox 
+                    (change)="solarFilter = solarCheckbox.checked">
+                <label class="form-check-label" for="solarCheckbox">
+                    Con Paneles Solares
+                </label>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="energiaCheckbox" #energiaCheckbox 
+                    (change)="energiaFilter = energiaCheckbox.checked">
+                <label class="form-check-label" for="energiaCheckbox">
+                    Con Energía Renovable
+                </label>
+            </div>
+        </div>
+    </div>
+
+    <!-- Botón de búsqueda -->
+    <div class="mb-4">
+        <button class="btn btn-primary" (click)="searchEcolodges()">Buscar</button>
+    </div>
+
+    <!-- Tabla de resultados -->
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Ubicación</th>
+                <th>Descripción</th>
+                <th>Precio/Noche</th>
+                <th>Paneles Solares</th>
+                <th>Energía Renovable</th>
+                <th>Acción</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let ecolodge of ecolodges">
+                <td>{{ ecolodge.nombre }}</td>
+                <td>{{ ecolodge.ubicacion }}</td>
+                <td>{{ ecolodge.descripcion }}</td>
+                <td>{{ ecolodge.precio }} €</td>
+                <td>{{ ecolodge.paneles_solares ? 1 : 0 }}</td>
+                <td>{{ ecolodge.energia_renovable ? 1 : 0 }}</td>
+                <td><button class="btn btn-success btn-sm" (click)="alquilar(ecolodge)">Alquilar</button></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <p *ngIf="ecolodges.length === 0" class="text-muted">No hay ecolodges disponibles.</p>
+</div>
