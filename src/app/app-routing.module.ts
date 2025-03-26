@@ -10,6 +10,8 @@ import { EcolodgeListComponent } from './components/ecolodge-list/ecolodge-list.
 import { EditEcolodgeComponent } from './components/edit-ecolodge/edit-ecolodge.component';
 import { SearchEcolodgesComponent } from './components/search-ecolodges/search-ecolodges.component';
 import { ReservaComponent } from './components/reserva/reserva.component';
+import { MisReservasComponent } from './components/mis-reservas/mis-reservas.component';
+import { OpinionesComponent } from './components/opiniones/opiniones.component';
 
 const routes: Routes = [
   { path: 'register', component: RegisterComponent },
@@ -20,6 +22,8 @@ const routes: Routes = [
   { path: 'editar-ecolodge/:id', component: EditEcolodgeComponent },
   { path: 'buscar-ecolodges', component: SearchEcolodgesComponent },
   { path: 'reservas', component: ReservaComponent },
+  { path: 'list-reservas', component: MisReservasComponent },
+  { path: 'opiniones/:id', component: OpinionesComponent },
   { path: '', component: HomePageComponent },
 ];
 

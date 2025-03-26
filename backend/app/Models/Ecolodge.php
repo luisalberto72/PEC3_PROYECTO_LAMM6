@@ -24,6 +24,16 @@ class Ecolodge extends Model
         return $this->belongsTo(User::class, 'propietario_id');
     }
 
-    
+     // Relación inversa con Reserva
+     public function reservas()
+     {
+         return $this->hasMany(Reserva::class);
+     }
+
+     // Relación con Opiniones
+    public function opiniones()
+    {
+        return $this->hasMany(Opinion::class);
+    }
 
 }

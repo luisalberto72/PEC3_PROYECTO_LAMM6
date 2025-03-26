@@ -10,6 +10,11 @@ use App\Http\Controllers\EcolodgeController;
 
 use App\Http\Controllers\ReservaController;
 
+
+use App\Http\Controllers\OpinionController;
+
+
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -74,5 +79,15 @@ Route::get('/ecolodge/{id}/imagenes', [EcolodgeController::class, 'obtenerImagen
 
 Route::post('/reservas/verificar-disponibilidad', [ReservaController::class, 'verificarDisponibilidad']);
 
-
 Route::post('/reservas/crear', [ReservaController::class, 'crearReserva']);
+
+Route::get('/reservas/usuario/{userId}', [ReservaController::class, 'obtenerReservasUsuario']);
+
+Route::delete('/reservas/cancelar/{reservaId}', [ReservaController::class, 'cancelarReserva']);
+
+Route::get('reservas/{id}', [ReservaController::class, 'show']);
+
+Route::get('/opiniones', [OpinionController::class, 'obtenerOpiniones']);
+
+Route::post('/opiniones', [OpinionController::class, 'guardarOpinion']);
+

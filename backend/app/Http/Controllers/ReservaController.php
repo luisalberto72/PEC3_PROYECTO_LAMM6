@@ -26,15 +26,18 @@ class ReservaController extends Controller
      */
     public function show($id)
     {
-        $reserva = Reserva::with('ecolodge', 'viajero')->find($id);
-
+        // Buscar la reserva con sus relaciones ecolodge y viajero
+        $reserva = Reserva::with(['ecolodge', 'viajero'])->find($id);
+    
         if (!$reserva) {
+            // Si no se encuentra la reserva, devolver un error 404
             return response()->json(['error' => 'Reserva no encontrada'], 404);
         }
-
+    
+        // Si todo está bien, devolver la reserva con las relaciones cargadas
         return response()->json($reserva);
     }
-
+    
     /**
      * Crear una nueva reserva.
      */
@@ -197,5 +200,28 @@ class ReservaController extends Controller
         return response()->json(['success' => true, 'message' => 'Reserva confirmada.']);
     }
     
+    public function obtenerReservasUsuario($userId)
+{
+    $reservas = Reserva::where('viajero_id', $userId)
+        ->where('estado', 'confirmada')
+        ->join('ecolodges', 'reservas.ecolodge_id', '=', 'ecolodges.id')
+        ->select('reservas.id', 'ecolodges.nombre as nombre_ecolodge', 'reservas.fecha_inicio', 'reservas.fecha_fin', 'reservas.estado')
+        ->get();
+
+    return response()->json($reservas);
+}
+
+public function cancelarReserva($reservaId)
+{
+    $reserva = Reserva::findOrFail($reservaId);
+
+    if (now()->toDateString() >= $reserva->fecha_inicio) {
+        return response()->json(['error' => 'No puedes cancelar una reserva que ya ha comenzado.'], 403);
+    }
+
+    $reserva->delete();
+    return response()->json(['success' => 'Reserva cancelada correctamente.']);
+}
+
 
 }

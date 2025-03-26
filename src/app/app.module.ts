@@ -21,6 +21,9 @@ import { DataService } from './dataservice.service';
 import { EditEcolodgeComponent } from './components/edit-ecolodge/edit-ecolodge.component';
 import { SearchEcolodgesComponent } from './components/search-ecolodges/search-ecolodges.component';
 import { ReservaComponent } from './components/reserva/reserva.component';
+import { MisReservasComponent } from './components/mis-reservas/mis-reservas.component';
+import { OpinionesComponent } from './components/opiniones/opiniones.component';
+
 
 
 
@@ -36,7 +39,9 @@ import { ReservaComponent } from './components/reserva/reserva.component';
     EcolodgeListComponent,
     EditEcolodgeComponent,
     SearchEcolodgesComponent,
-    ReservaComponent
+    ReservaComponent,
+    MisReservasComponent,
+    OpinionesComponent
   ],
   imports: [
     BrowserModule,

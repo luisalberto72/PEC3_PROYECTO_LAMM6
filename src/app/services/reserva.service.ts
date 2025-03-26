@@ -16,7 +16,7 @@ export class ReservaService {
     console.log('Enviando datos a verificar disponibilidad:', reservaData);
     return this.http.post<any>(`${this.apiUrl}/verificar-disponibilidad`, reservaData);
   }
-  
+
   crearReserva(reservaData: any): Observable<any> {
     return this.http.post(`${this.apiUrl}/crear`, reservaData);
   }
@@ -53,4 +53,19 @@ export class ReservaService {
   getImagenesEcolodge(ecolodgeId: number): Observable<any> {
     return this.http.get(`${this.api}/ecolodge/${ecolodgeId}/imagenes`);
   }
+
+  obtenerReservasUsuario(userId: number): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/usuario/${userId}`);
+  }
+
+  cancelarReserva(reservaId: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/cancelar/${reservaId}`);
+  }
+
+   // Método para obtener una reserva por su ID
+   obtenerReservaPorId(reservaId: number): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/${reservaId}`);
+  }
+
+  
 }

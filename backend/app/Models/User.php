@@ -74,4 +74,16 @@ class User extends Authenticatable implements JWTSubject
     {
         return [];
     }
+
+     // Relación inversa con Reserva
+     public function reservas()
+     {
+         return $this->hasMany(Reserva::class, 'viajero_id');
+     }
+
+     // Relación con Opiniones
+    public function opiniones()
+    {
+        return $this->hasMany(Opinion::class, 'viajero_id');
+    }
 }

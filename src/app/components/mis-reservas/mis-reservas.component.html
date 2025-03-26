@@ -1,0 +1,31 @@
+<div class="container">
+  <h2>Mis Reservas</h2>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Nombre del Ecolodge</th>
+        <th>Fecha Inicio</th>
+        <th>Fecha Fin</th>
+        <th>Estado</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let reserva of reservas">
+        <td>{{ reserva.nombre_ecolodge }}</td>
+        <td>{{ reserva.fecha_inicio }}</td>
+        <td>{{ reserva.fecha_fin }}</td>
+        <td>{{ reserva.estado }}</td>
+        <td>
+          <button class="btn btn-danger" (click)="cancelarReserva(reserva.id, reserva.fecha_inicio, reserva.fecha_fin)">
+            Cancelar
+          </button>  
+          <button class="btn btn-primary" [disabled]="!puedeValorar(reserva.fecha_fin)" (click)="valorarReserva(reserva.id)">
+            Valoración
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+

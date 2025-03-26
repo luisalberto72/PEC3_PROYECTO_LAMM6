@@ -1,0 +1,54 @@
+<div class="container">
+    <h2>Opiniones de los viajeros</h2>
+  
+    <!-- Formulario para agregar una nueva opinión -->
+    <div class="card mb-3">
+      <div class="card-body">
+        <h5 class="card-title">Deja tu opinión</h5>
+  
+        <!-- Campo oculto para Ecolodge ID, sólo se necesita el ID -->
+        <label for="ecolodge">Ecolodge:</label>
+        <input type="text" [(ngModel)]="opinionNueva.ecolodge_nombre" class="form-control mb-2" [readonly]="true" placeholder="Nombre del Ecolodge">
+  
+        <!-- Campo oculto para Viajero ID, sólo se necesita el ID -->
+        <label for="viajero">Viajero:</label>
+        <input type="text" [(ngModel)]="opinionNueva.viajero_nombre" class="form-control mb-2" [readonly]="true" placeholder="Nombre del Viajero">
+  
+        <label>Calificación:</label>
+        <div class="mb-2">
+          <span *ngFor="let estrella of [1,2,3,4,5]" (click)="seleccionarCalificacion(estrella)" class="estrella" [class.activa]="opinionNueva.calificacion >= estrella">★</span>
+        </div>
+  
+        <label>Comentario:</label>
+        <textarea [(ngModel)]="opinionNueva.comentario" class="form-control mb-2" rows="3"></textarea>
+  
+        <button (click)="enviarOpinion()" class="btn btn-primary">Enviar Opinión</button>
+      </div>
+    </div>
+  
+    <!-- Tabla de opiniones -->
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Nombre del Ecolodge</th>
+          <th>Nombre del Viajero</th>
+          <th>Calificación</th>
+          <th>Comentario</th>
+          <th>Fecha</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let opinion of opiniones">
+          <td>{{ opinion.ecolodge?.nombre ?? 'Desconocido' }}</td>
+          <td>{{ opinion.viajero?.nombre ?? 'Anónimo' }}</td>
+          <td>
+            <span *ngFor="let estrella of [1,2,3,4,5]" class="estrella" [class.activa]="opinion.calificacion >= estrella">★</span>
+          </td>
+          <td>{{ opinion.comentario }}</td>
+          <td>{{ opinion.created_at | date:'short' }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  
+  

@@ -4,11 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Reserva extends Model
+class Opinion extends Model
 {
-    protected $fillable = [
-        'ecolodge_id', 'viajero_id', 'fecha_inicio', 'fecha_fin', 'estado', 'precio_total'
-    ];
+    // Indicar que el nombre de la tabla es 'opiniones'
+    protected $table = 'opiniones';
+
+    protected $fillable = ['ecolodge_id', 'viajero_id', 'calificacion', 'comentario'];
 
     // Relación con Ecolodge
     public function ecolodge()
