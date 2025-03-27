@@ -9,7 +9,14 @@ class Opinion extends Model
     // Indicar que el nombre de la tabla es 'opiniones'
     protected $table = 'opiniones';
 
-    protected $fillable = ['ecolodge_id', 'viajero_id', 'calificacion', 'comentario'];
+    protected $fillable = [
+        'ecolodge_id',
+        'viajero_id',
+        'calificacion',
+        'comentario',
+        'ecolodge_nombre',  // Añadir estos campos para la asignación masiva
+        'viajero_nombre',
+    ];
 
     // Relación con Ecolodge
     public function ecolodge()

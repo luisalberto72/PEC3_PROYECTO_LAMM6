@@ -30,12 +30,37 @@ class OpinionController extends Controller
         }
     
         try {
-            $opinion = Opinion::create($request->all());
-            return response()->json(['success' => 'Opinión guardada correctamente.', 'opinion' => $opinion], 201);
+            // Verifica si el ecolodge y el viajero existen
+            $ecolodge = Ecolodge::find($request->ecolodge_id);
+            $viajero = User::find($request->viajero_id);
+    
+            if (!$ecolodge || !$viajero) {
+                return response()->json(['error' => 'Ecolodge o Viajero no encontrado'], 404);
+            }
+    
+            // Crear la opinión con los nombres
+            $opinion = Opinion::create([
+                'ecolodge_id' => $request->ecolodge_id,
+                'viajero_id' => $request->viajero_id,
+                'calificacion' => $request->calificacion,
+                'comentario' => $request->comentario,
+                'ecolodge_nombre' => $ecolodge->nombre,  // Guardar el nombre del ecolodge
+                'viajero_nombre' => $viajero->first_name . ' ' . $viajero->last_name,  // Guardar el nombre completo del viajero
+            ]);
+    
+            return response()->json([
+                'success' => 'Opinión guardada correctamente.',
+                'opinion' => $opinion
+            ], 201);
         } catch (\Exception $e) {
-            return response()->json(['error' => 'Error al guardar la opinión', 'detalle' => $e->getMessage()], 500);
+            // Si ocurre un error al guardar la opinión, se maneja la excepción
+            return response()->json([
+                'error' => 'Error al guardar la opinión',
+                'detalle' => $e->getMessage()
+            ], 500);
         }
     }
+    
     
     // Método para obtener todas las opiniones (usado para cargar opiniones en el frontend)
     public function obtenerOpiniones()

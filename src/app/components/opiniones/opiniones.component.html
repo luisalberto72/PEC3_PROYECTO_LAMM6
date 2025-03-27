@@ -26,29 +26,7 @@
       </div>
     </div>
   
-    <!-- Tabla de opiniones -->
-    <table class="table">
-      <thead>
-        <tr>
-          <th>Nombre del Ecolodge</th>
-          <th>Nombre del Viajero</th>
-          <th>Calificación</th>
-          <th>Comentario</th>
-          <th>Fecha</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let opinion of opiniones">
-          <td>{{ opinion.ecolodge?.nombre ?? 'Desconocido' }}</td>
-          <td>{{ opinion.viajero?.nombre ?? 'Anónimo' }}</td>
-          <td>
-            <span *ngFor="let estrella of [1,2,3,4,5]" class="estrella" [class.activa]="opinion.calificacion >= estrella">★</span>
-          </td>
-          <td>{{ opinion.comentario }}</td>
-          <td>{{ opinion.created_at | date:'short' }}</td>
-        </tr>
-      </tbody>
-    </table>
+    
   </div>
   
   

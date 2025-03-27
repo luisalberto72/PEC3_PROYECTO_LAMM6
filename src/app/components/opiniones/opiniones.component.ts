@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { OpinionService } from '../../services/opinion.service'; // Asegúrate de importar el servicio adecuado
+import { OpinionService } from '../../services/opinion.service'; 
+import { ActivatedRoute } from '@angular/router'; 
 
 @Component({
   selector: 'app-opiniones',
@@ -7,32 +8,47 @@ import { OpinionService } from '../../services/opinion.service'; // Asegúrate d
   styleUrls: ['./opiniones.component.css']
 })
 export class OpinionesComponent implements OnInit {
-  // Asegúrate de que la propiedad opiniones esté definida e inicializada
-  opiniones: any[] = [];  // Aquí se almacenarán las opiniones
+  opiniones: any[] = [];  
 
   opinionNueva = {
-    ecolodge_id: null,  // ID del ecolodge
-    viajero_id: null,   // ID del viajero
+    ecolodge_id: null,    
+    viajero_id: null,     
     calificacion: 0,
     comentario: '',
-    ecolodge_nombre: '', // Nombre del ecolodge, solo para mostrar
-    viajero_nombre: ''   // Nombre del viajero, solo para mostrar
+    ecolodge_nombre: '',  
+    viajero_nombre: ''   
   };
 
-  constructor(private opinionService: OpinionService) {}
+  constructor(
+    private opinionService: OpinionService,
+    private route: ActivatedRoute 
+  ) {}
 
   ngOnInit() {
-    this.obtenerOpiniones();  // Llamar al método para obtener las opiniones
+    // Obtener los parámetros de la URL
+    this.route.queryParams.subscribe(params => {
+      const ecolodgeId = params['ecolodgeId'];  // Usar ecolodgeId en lugar de reservaId
+      const ecolodgeNombre = params['ecolodgeNombre'];
+      const viajeroId = params['viajeroId'];
+      const viajeroNombre = params['viajeroNombre'];  // Pasar el nombre del viajero
+
+      // Asignar los valores a la nueva opinión
+      this.opinionNueva.ecolodge_id = ecolodgeId;
+      this.opinionNueva.viajero_id = viajeroId;
+      this.opinionNueva.ecolodge_nombre = ecolodgeNombre;
+      this.opinionNueva.viajero_nombre = viajeroNombre;
+    });
+
+    this.obtenerOpiniones();  
   }
 
-  // Método para obtener las opiniones
   obtenerOpiniones() {
     this.opinionService.obtenerOpiniones().subscribe(
       (data: any) => {
-        this.opiniones = data;  // Asignar las opiniones al array opiniones
+        this.opiniones = data;  
       },
       (error) => {
-        console.error('Error al obtener opiniones', error);  // Manejar el error
+        console.error('Error al obtener opiniones', error);  
       }
     );
   }
@@ -50,9 +66,9 @@ export class OpinionesComponent implements OnInit {
     };
 
     this.opinionService.enviarOpinion(opinionData).subscribe(response => {
-      this.obtenerOpiniones(); // Recargar las opiniones después de enviar una nueva
-      this.opinionNueva.comentario = ''; // Limpiar el comentario
-      this.opinionNueva.calificacion = 0; // Limpiar la calificación
+      this.obtenerOpiniones();
+      this.opinionNueva.comentario = '';
+      this.opinionNueva.calificacion = 0;
     });
   }
 }

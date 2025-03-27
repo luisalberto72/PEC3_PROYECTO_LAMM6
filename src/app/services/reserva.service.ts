@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 import jwt_decode from 'jwt-decode';  // Importamos la librería para decodificar el JWT
 
 @Injectable({
@@ -26,21 +26,30 @@ export class ReservaService {
     return localStorage.getItem('user');
   }
   
-  // Método para obtener el usuario actual decodificando el token
-  getCurrentUser(): any {
-    const token = localStorage.getItem('user');
-    if (token) {
-      try {
-        // Decodificamos el token JWT
-        const decodedToken: any = jwt_decode(token);
-        return decodedToken; // Devuelve los datos del usuario (como el ID, correo, etc.)
-      } catch (error) {
-        console.error('Error al decodificar el token:', error);
-        return null; // Si no se puede decodificar, devuelve null
+ getCurrentUser(): any {
+  const token = localStorage.getItem('user');  // Obtiene el token del localStorage
+
+  if (token) {
+    try {
+      // Decodificamos el token JWT
+      const decodedToken: any = jwt_decode(token);
+
+      // Asegurarse de que el token contiene el campo "sub" o cualquier otro identificador importante
+      if (decodedToken && decodedToken.sub) {
+        return decodedToken;  // Devuelve los datos del usuario (como el ID, correo, etc.)
+      } else {
+        console.error('Error: El token no contiene información válida');
+        return null;
       }
+    } catch (error) {
+      console.error('Error al decodificar el token:', error);
+      return null;  // Si no se puede decodificar, devuelve null
     }
-    return null; // Si no hay token, devuelve null
   }
+
+  // Si no hay token en el localStorage, devuelve null
+  return null;
+}
 
   getRequestHeaders(): { Authorization: string } | {} {
     const token = this.getToken();
@@ -54,9 +63,7 @@ export class ReservaService {
     return this.http.get(`${this.api}/ecolodge/${ecolodgeId}/imagenes`);
   }
 
-  obtenerReservasUsuario(userId: number): Observable<any[]> {
-    return this.http.get<any[]>(`${this.apiUrl}/usuario/${userId}`);
-  }
+  
 
   cancelarReserva(reservaId: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/cancelar/${reservaId}`);
@@ -67,5 +74,10 @@ export class ReservaService {
     return this.http.get<any>(`${this.apiUrl}/${reservaId}`);
   }
 
+  obtenerReservasUsuario(userId: number): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/usuario/${userId}`).pipe(
+      tap(reservas => console.log('Reservas obtenidas:', reservas))
+    );
+  }
   
 }

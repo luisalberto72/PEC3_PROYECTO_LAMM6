@@ -23,7 +23,7 @@ const routes: Routes = [
   { path: 'buscar-ecolodges', component: SearchEcolodgesComponent },
   { path: 'reservas', component: ReservaComponent },
   { path: 'list-reservas', component: MisReservasComponent },
-  { path: 'opiniones/:id', component: OpinionesComponent },
+  { path: 'opiniones', component: OpinionesComponent },
   { path: '', component: HomePageComponent },
 ];
 

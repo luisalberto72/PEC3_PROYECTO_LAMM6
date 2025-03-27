@@ -23,6 +23,7 @@ export class DataService {
   public getUserInfo(userId: any): Observable<any> {
     return this.http.get<any>(`${this.url}/userinfo/${userId}`, { headers: this.getAuthHeaders() });
   }
+  
 
   public updateUserProfile(data: any, id: any): Observable<any> {
     return this.http.post(`${this.url}/UserUpdate/${id}`, data, { headers: this.getAuthHeaders() });

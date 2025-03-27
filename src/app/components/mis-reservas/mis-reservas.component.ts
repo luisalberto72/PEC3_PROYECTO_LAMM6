@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ReservaService } from '../../services/reserva.service';
 import { EcolodgeService } from '../../services/ecolodge.service';
+import { DataService } from '../../dataservice.service'; 
 import { Router } from '@angular/router';
 
 @Component({
@@ -11,10 +12,12 @@ import { Router } from '@angular/router';
 export class MisReservasComponent implements OnInit {
   reservas: any[] = [];
   userId: number = 0; // Asegurar que es un número válido
+  usuarioLogueado: any;
 
   constructor(
     private reservaService: ReservaService,
     private ecolodgeService: EcolodgeService,
+    private dataService: DataService,  // Inyectamos el DataService aquí
     private router: Router
   ) {}
 
@@ -31,10 +34,11 @@ export class MisReservasComponent implements OnInit {
     if (this.userId > 0) {
       this.reservaService.obtenerReservasUsuario(this.userId).subscribe(
         (data) => {
-          this.reservas = data; // Cargar las reservas del usuario
+          console.log("Reservas cargadas:", data);  // Verifica en la consola si ecolodge_id está presente
+          this.reservas = data;
         },
         (error) => {
-          console.error('Error al obtener reservas', error); // Manejar posibles errores al obtener las reservas
+          console.error('Error al obtener reservas', error);
         }
       );
     }
@@ -61,14 +65,49 @@ export class MisReservasComponent implements OnInit {
     }
   }
   
-
   puedeValorar(fechaFin: string): boolean {
     const hoy = new Date();
     const fechaFinReserva = new Date(fechaFin);
     return hoy > fechaFinReserva;  // Solo se puede valorar si la fecha de fin ya pasó
   }
 
-  valorarReserva(reservaId: number): void {
-    this.router.navigate(['/opiniones', reservaId]);  // Redirige al usuario a la página de opiniones para esa reserva
+  valorarReserva(reserva: any): void {
+    console.log("Reserva seleccionada para valorar:", reserva);
+    
+    if (!reserva || !reserva.ecolodge_id || !reserva.viajero_id) {
+      console.error("Error: La reserva es inválida o no tiene un ecolodge_id o viajero_id", reserva);
+      return;
+    }
+  
+    const viajeroId = reserva.viajero_id;
+  
+    // Llamada al servicio para obtener los datos del usuario
+    this.dataService.getUserInfo(viajeroId).subscribe(
+      (usuario: { first_name: string; last_name: string }) => {
+        if (!usuario || !usuario.first_name || !usuario.last_name) {
+          console.error("Error: Los datos del usuario son incompletos", usuario);
+          return;
+        }
+  
+        const viajeroNombre = usuario.first_name + ' ' + usuario.last_name;
+        console.log('Nombre del viajero:', viajeroNombre);
+  
+        // Navegar a la página de opiniones con los parámetros necesarios
+        this.router.navigate(['/opiniones'], {
+          queryParams: {
+            ecolodgeId: reserva.ecolodge_id,
+            ecolodgeNombre: reserva.nombre_ecolodge,
+            viajeroId: viajeroId,
+            viajeroNombre: viajeroNombre
+          }
+        });
+      },
+      (error: any) => {
+        console.error("Error al obtener la información del usuario:", error);
+        alert("Hubo un error al obtener la información del viajero. Inténtalo más tarde.");
+      }
+    );
   }
+  
 }
+

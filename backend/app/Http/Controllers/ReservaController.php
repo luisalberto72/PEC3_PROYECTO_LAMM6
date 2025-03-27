@@ -201,16 +201,18 @@ class ReservaController extends Controller
     }
     
     public function obtenerReservasUsuario($userId)
-{
-    $reservas = Reserva::where('viajero_id', $userId)
-        ->where('estado', 'confirmada')
-        ->join('ecolodges', 'reservas.ecolodge_id', '=', 'ecolodges.id')
-        ->select('reservas.id', 'ecolodges.nombre as nombre_ecolodge', 'reservas.fecha_inicio', 'reservas.fecha_fin', 'reservas.estado')
-        ->get();
-
-    return response()->json($reservas);
-}
-
+    {
+        $reservas = Reserva::where('viajero_id', $userId)
+            ->whereNotNull('ecolodge_id') // Evita reservas sin ecolodge
+            ->join('ecolodges', 'reservas.ecolodge_id', '=', 'ecolodges.id')
+            ->select('reservas.*', 'ecolodges.nombre as nombre_ecolodge', 'reservas.ecolodge_id')
+            ->get();
+    
+        Log::info('Reservas obtenidas:', $reservas->toArray()); // Verifica qué devuelve
+    
+        return response()->json($reservas);
+    }
+    
 public function cancelarReserva($reservaId)
 {
     $reserva = Reserva::findOrFail($reservaId);
