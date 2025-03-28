@@ -225,5 +225,34 @@ public function cancelarReserva($reservaId)
     return response()->json(['success' => 'Reserva cancelada correctamente.']);
 }
 
+public function moverReservasFinalizadas()
+{
+    Reserva::moverReservasFinalizadas();
+    return response()->json(['message' => 'Reservas finalizadas movidas al historial'], 200);
+}
+
+public function obtenerHistorialReservas(Request $request)
+{
+    // Obtén el usuario autenticado
+    $user = Auth::user();
+
+    // Verifica si el usuario está autenticado
+    if ($user) {
+        try {
+            // Obtén las reservas finalizadas del usuario con las relaciones
+            $reservas = Reserva::with(['ecolodge', 'viajero'])  // Carga las relaciones
+                                ->where('viajero_id', $user->id)
+                                ->where('estado', 'finalizada')
+                                ->get();
+
+            return response()->json($reservas);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Hubo un problema al obtener las reservas: ' . $e->getMessage()], 500);
+        }
+    }
+
+    return response()->json(['error' => 'No autenticado'], 401);
+}
+
 
 }

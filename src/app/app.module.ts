@@ -23,6 +23,7 @@ import { SearchEcolodgesComponent } from './components/search-ecolodges/search-e
 import { ReservaComponent } from './components/reserva/reserva.component';
 import { MisReservasComponent } from './components/mis-reservas/mis-reservas.component';
 import { OpinionesComponent } from './components/opiniones/opiniones.component';
+import { HistorialReservasComponent } from './components/historial-reservas/historial-reservas.component';
 
 
 
@@ -41,7 +42,8 @@ import { OpinionesComponent } from './components/opiniones/opiniones.component';
     SearchEcolodgesComponent,
     ReservaComponent,
     MisReservasComponent,
-    OpinionesComponent
+    OpinionesComponent,
+    HistorialReservasComponent
   ],
   imports: [
     BrowserModule,

@@ -13,6 +13,10 @@ use App\Http\Controllers\ReservaController;
 
 use App\Http\Controllers\OpinionController;
 
+use App\Http\Controllers\HistorialReservaController;
+
+
+
 
 
 /*
@@ -90,4 +94,8 @@ Route::get('reservas/{id}', [ReservaController::class, 'show']);
 Route::get('/opiniones', [OpinionController::class, 'obtenerOpiniones']);
 
 Route::post('/opiniones', [OpinionController::class, 'guardarOpinion']);
+
+Route::get('/historial-reservas', [HistorialReservaController::class, 'index']);
+
+Route::middleware('auth:api')->get('/historial-reservas', [ReservaController::class, 'obtenerHistorialReservas']);
 

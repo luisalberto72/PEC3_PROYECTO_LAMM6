@@ -12,6 +12,7 @@ import { SearchEcolodgesComponent } from './components/search-ecolodges/search-e
 import { ReservaComponent } from './components/reserva/reserva.component';
 import { MisReservasComponent } from './components/mis-reservas/mis-reservas.component';
 import { OpinionesComponent } from './components/opiniones/opiniones.component';
+import { HistorialReservasComponent } from './components/historial-reservas/historial-reservas.component';
 
 const routes: Routes = [
   { path: 'register', component: RegisterComponent },
@@ -24,6 +25,7 @@ const routes: Routes = [
   { path: 'reservas', component: ReservaComponent },
   { path: 'list-reservas', component: MisReservasComponent },
   { path: 'opiniones', component: OpinionesComponent },
+  { path: 'historial-reservas', component: HistorialReservasComponent },
   { path: '', component: HomePageComponent },
 ];
 

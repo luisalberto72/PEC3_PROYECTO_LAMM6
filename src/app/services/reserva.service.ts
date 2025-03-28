@@ -79,5 +79,10 @@ export class ReservaService {
       tap(reservas => console.log('Reservas obtenidas:', reservas))
     );
   }
+
+  moverReservasFinalizadas(): Observable<any> {
+    return this.http.post(`${this.apiUrl}/mover-reservas`, {});
+  }
+  
   
 }
