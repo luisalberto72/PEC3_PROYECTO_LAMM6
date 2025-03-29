@@ -84,4 +84,38 @@ class OpinionController extends Controller
     }
 }
 
+public function filtrarOpiniones(Request $request)
+{
+    $query = Opinion::with(['ecolodge', 'viajero']);
+
+    // Filtrar por ecolodge si se proporciona
+    if ($request->has('ecolodge_nombre') && $request->ecolodge_nombre != '') {
+        $query->whereHas('ecolodge', function ($q) use ($request) {
+            $q->where('nombre', 'like', '%' . $request->ecolodge_nombre . '%');
+        });
+    }
+
+    // Filtrar por calificación si se proporciona
+    if ($request->has('calificacion') && $request->calificacion != '') {
+        $query->where('calificacion', $request->calificacion);
+    }
+
+    // Ordenar por fecha si se selecciona
+    if ($request->has('orden') && in_array($request->orden, ['asc', 'desc'])) {
+        $query->orderBy('created_at', $request->orden);
+    } else {
+        $query->orderBy('created_at', 'desc');
+    }
+
+    $opiniones = $query->get();
+
+    return response()->json($opiniones);
+}
+
+
+public function obtenerEcolodges()
+{
+    return response()->json(Ecolodge::select('id', 'nombre')->get());
+}
+
 }

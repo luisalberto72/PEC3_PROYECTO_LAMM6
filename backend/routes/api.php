@@ -95,7 +95,7 @@ Route::get('/opiniones', [OpinionController::class, 'obtenerOpiniones']);
 
 Route::post('/opiniones', [OpinionController::class, 'guardarOpinion']);
 
-Route::get('/historial-reservas', [HistorialReservaController::class, 'index']);
+Route::get('/opiniones/filtrar', [OpinionController::class, 'filtrarOpiniones']);
 
 Route::middleware('auth:api')->get('/historial-reservas', [ReservaController::class, 'obtenerHistorialReservas']);
 

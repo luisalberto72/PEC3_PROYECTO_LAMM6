@@ -1,0 +1,78 @@
+<div class="container">
+    <h2>Ver Opiniones</h2>
+    <!-- Filtro de Ecolodge -->
+    <div class="form-group">
+      <label for="ecolodge_nombre">Buscar Ecolodge</label>
+      <input
+        type="text"
+        id="ecolodge_nombre"
+        class="form-control"
+        list="ecolodges"
+        [(ngModel)]="filtros.ecolodge_nombre"
+        placeholder="Buscar Ecolodge"
+        (input)="onFiltrar()"
+      />
+      <datalist id="ecolodges">
+        <option *ngFor="let ecolodge of ecolodges" [value]="ecolodge.nombre"></option>
+      </datalist>
+    </div>
+  
+    <!-- Filtro de Calificación -->
+    <div class="form-group">
+      <label for="calificacion">Calificación</label>
+      <select
+        id="calificacion"
+        class="form-control"
+        [(ngModel)]="filtros.calificacion"
+        (change)="onFiltrar()"
+      >
+        <option value="">Seleccionar Calificación</option>
+        <option *ngFor="let calificacion of calificaciones" [value]="calificacion">{{ calificacion }} estrellas</option>
+      </select>
+    </div>
+  
+    <!-- Filtro de Orden -->
+    <div class="form-group">
+      <label for="orden">Ordenar por Fecha</label>
+      <select
+        id="orden"
+        class="form-control"
+        [(ngModel)]="filtros.orden"
+        (change)="onFiltrar()"
+      >
+        <option value="desc">Más reciente</option>
+        <option value="asc">Más antiguo</option>
+      </select>
+    </div>
+  
+    <!-- Botón Filtrar -->
+    <button class="btn btn-primary" (click)="onFiltrar()">Filtrar</button>
+  
+    <!-- Tabla de Opiniones -->
+    <table class="table mt-4" *ngIf="opiniones.length > 0">
+      <thead>
+        <tr>
+          <th>Ecolodge</th>
+          <th>Calificación</th>
+          <th>Comentario</th>
+          <th>Viajero</th>
+          <th>Fecha</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let opinion of opiniones">
+          <td>{{ opinion.ecolodge_nombre }}</td>
+          <td>{{ opinion.calificacion }} estrellas</td>
+          <td>{{ opinion.comentario }}</td>
+          <td>{{ opinion.viajero_nombre }}</td>
+          <td>{{ opinion.fecha | date: 'dd/MM/yyyy' }}</td>
+        </tr>
+      </tbody>
+    </table>
+  
+    <!-- Mensaje cuando no hay opiniones -->
+    <div *ngIf="opiniones.length === 0" class="alert alert-warning">
+      No se encontraron opiniones para los filtros seleccionados.
+    </div>
+  </div>
+  

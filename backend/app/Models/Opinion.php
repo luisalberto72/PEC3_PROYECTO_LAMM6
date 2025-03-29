@@ -14,8 +14,8 @@ class Opinion extends Model
         'viajero_id',
         'calificacion',
         'comentario',
-        'ecolodge_nombre',  // Añadir estos campos para la asignación masiva
-        'viajero_nombre',
+        'ecolodge_nombre',  
+        'viajero_nombre'
     ];
 
     // Relación con Ecolodge

@@ -13,7 +13,7 @@ return new class extends Migration {
             $table->foreignId('viajero_id')->constrained('users')->onDelete('cascade');
             $table->date('fecha_inicio');
             $table->date('fecha_fin');
-            $table->enum('estado', ['activa','confirmada','cancelada'])->default('activa');
+            $table->enum('estado', ['activa','confirmada','cancelada','finalizada'])->default('activa');
             $table->decimal('precio_total', 8, 2)->default(0.0); // No es necesario usar 'change' si la columna no existía antes
             $table->timestamps();
         });

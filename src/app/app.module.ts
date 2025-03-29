@@ -24,6 +24,7 @@ import { ReservaComponent } from './components/reserva/reserva.component';
 import { MisReservasComponent } from './components/mis-reservas/mis-reservas.component';
 import { OpinionesComponent } from './components/opiniones/opiniones.component';
 import { HistorialReservasComponent } from './components/historial-reservas/historial-reservas.component';
+import { VerOpinionesComponent } from './components/ver-opiniones/ver-opiniones.component';
 
 
 
@@ -43,7 +44,8 @@ import { HistorialReservasComponent } from './components/historial-reservas/hist
     ReservaComponent,
     MisReservasComponent,
     OpinionesComponent,
-    HistorialReservasComponent
+    HistorialReservasComponent,
+    VerOpinionesComponent
   ],
   imports: [
     BrowserModule,
