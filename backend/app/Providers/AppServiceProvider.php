@@ -25,6 +25,7 @@ class AppServiceProvider extends ServiceProvider
     Reserva::where('fecha_fin', '<', Carbon::now())
         ->where('estado', '!=', 'finalizada')
         ->update(['estado' => 'finalizada']);
+
 }
 
 }

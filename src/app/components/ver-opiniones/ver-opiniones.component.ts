@@ -24,17 +24,17 @@ export class VerOpinionesComponent implements OnInit {
   }
 
   obtenerOpiniones(): void {
-    // Llamar al servicio para obtener las opiniones filtradas
     this.opinionService.filtrarOpiniones(this.filtros).subscribe(
-      (data) => {
-        this.opiniones = data;
-        console.log(data); // Verifica que los datos se están obteniendo correctamente
-      },
-      (error) => {
-        console.error('Error al obtener opiniones', error);
-      }
+        (data) => {
+            this.opiniones = data;
+            console.log('Opiniones recibidas:', data); // Verificar si "fecha" está en la respuesta
+        },
+        (error) => {
+            console.error('Error al obtener opiniones', error);
+        }
     );
-  }
+}
+
 
   obtenerEcolodges(): void {
     // Obtener los ecolodges para llenar el autocompletado
