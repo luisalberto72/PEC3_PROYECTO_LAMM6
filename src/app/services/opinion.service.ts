@@ -28,13 +28,14 @@ export class OpinionService {
       params = params.set('orden', filtros.orden);
     }
 
-    return this.http.get<Opinion[]>(`${this.apiUrl}/opiniones`, { params });
+    return this.http.get<Opinion[]>(`${this.api}/opiniones`, { params });
   }
 
 
   enviarOpinion(opinion: any): Observable<any> {
     return this.http.post(this.apiUrl, opinion);
   }
+
  // Función para obtener las opiniones filtradas
  filtrarOpiniones(filtros: any): Observable<any[]> {
   let params = new HttpParams();
@@ -58,7 +59,7 @@ obtenerEcolodges(): Observable<any[]> {
   
   const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
   
-  return this.http.get<any[]>(`${this.apiUrl}/ecolodges`, { headers: headers });
+  return this.http.get<any[]>(`${this.api}/ecolodges`, { headers: headers });
 }
 
 }
